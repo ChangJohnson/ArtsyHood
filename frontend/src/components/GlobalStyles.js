@@ -2,11 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   :root {
-    --color-cadmium-red: #D80026;
-    --color-alabama-crimson: #AA001E;
-    --color-orange: #F79D00;
-    --color-selective-yellow: #FDBB01;
-    --color-desert-sand: #E3C4A6;
+    --color-Sand-Tan: #e1b382;
+    --color-Sand-Tan-Shadow: #c89666;
+    --color-Night-Blue: #2d545e;
+    --color-Night-Blue-Shadow: #12343b;
+   
     --font-heading: 'Permanent Marker', Arial, Helvetica, sans-serif;
     --font-body: 'Kosugi', Arial, Helvetica, sans-serif;
     --padding-page: 24px;
@@ -36,6 +36,7 @@ export default createGlobalStyle`
       box-sizing: border-box;
       font-size: 100%;
       vertical-align: baseline;
+      
   }
   /* HTML5 display-role reset for older browsers */
   article, aside, details, figcaption, figure,
@@ -57,12 +58,36 @@ export default createGlobalStyle`
       content: none;
   }
 
-  h1,
+div{
+  
+}
+
 h2,
-h3,
-label,
-button {
-  color: #fff;
+  h1{
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  text-align: center;
+
+
+}
+
+h3{ color: #FFFFFF;
+  font-family: var(--font-heading);
+}
+
+button{
+  font-family: var(--font-heading);
+  background-color:var(--color-Night-Blue);
+ 
+  color: #FFFFFF;
+  width: 45px;
+  border-radius:7%;
+}
+
+label {
+  background-color:var(--color-Night-Blue);
+  color: #FFFFFF;
   font-family: var(--font-heading);
   font-size: 32px;
   text-align: center;
@@ -78,7 +103,7 @@ input {
   input {
     font-size: 24px;
     height: 42px;
-    border: 2px solid var(--color-orange);
+    border: 2px solid var(--color-Sand-Tan);
     border-radius: 4px;
     padding: 0 12px;
   }

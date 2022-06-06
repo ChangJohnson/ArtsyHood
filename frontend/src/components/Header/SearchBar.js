@@ -19,7 +19,6 @@ const SearchBar = () => {
     fetch(`/api/arts/name/${e.target.value}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setItems(data.data);
       })
       .catch((err) => {

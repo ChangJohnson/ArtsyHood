@@ -1,0 +1,163 @@
+[
+  {
+    "_id": "60d0fe4f5311236168a109d4",
+
+    "firstName": "Valentin",
+    "lastName": "Ortega",
+    "picture": "https://randomuser.me/api/portraits/med/men/3.jpg",
+    "gender": "male",
+    "email": "valentin.ortega@example.com",
+    "dateOfBirth": "1953-10-15T02:26:17.794Z",
+    "phone": "993-465-335",
+
+    "street": "2580, Calle de Ferraz",
+    "city": "Albacete",
+    "state": "Islas Baleares",
+    "country": "Spain"
+  },
+
+  {
+    "_id": "60d0fe4f5311236168a109d5",
+
+    "firstName": "Sibylle",
+    "lastName": "Leibold",
+    "picture": "https://randomuser.me/api/portraits/med/women/89.jpg",
+    "gender": "female",
+    "email": "sibylle.leibold@example.com",
+    "dateOfBirth": "1980-12-21T09:19:00.529Z",
+    "phone": "0221-3659630",
+
+    "street": "138, RosenstraÃŸe",
+    "city": "Heimbach",
+    "state": "Sachsen",
+    "country": "Germany"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109d6",
+
+    "firstName": "Elisa",
+    "lastName": "Lorenzo",
+    "picture": "https://randomuser.me/api/portraits/med/women/89.jpg",
+    "gender": "female",
+    "email": "elisa.lorenzo@example.com",
+    "dateOfBirth": "1964-04-12T15:53:58.608Z",
+    "phone": "991-948-802",
+
+    "street": "9038, Avenida de Burgos",
+    "city": "Granada",
+    "state": " Cantabria",
+    "country": "Spain"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109d7",
+
+    "firstName": "Leevi",
+    " lastName": "Savela",
+    "picture": "https://randomuser.me/api/portraits/med/men/67.jpg",
+    "gender": "male",
+    "email": "leevi.savela@example.com",
+    "dateOfBirth": "1980-12-19T12:11:14.893Z",
+    "phone": "02-200-101",
+
+    "street": "4013, HÃ¤meentie",
+    "city": "Malax",
+    "state": "Southern Ostrobothnia",
+    "country": "Finland"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109d8",
+
+    "firstName": "Karoline",
+    "lastName": "Sviggum",
+    "picture": "https://randomuser.me/api/portraits/med/women/61.jpg",
+    "gender": "female",
+    "email": "karoline.sviggum@example.com",
+    "dateOfBirth": "1970-01-04T08:27:48.279Z",
+    "phone": "73332504",
+
+    "street": "4192, Finnhaugveien",
+    " city": "SÃ¦tre",
+    "state": "Finnmark - FinnmÃ¡rku",
+    "country": "Norway"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109d9",
+
+    "firstName": "Nuria",
+    "lastName": "Leon",
+    "picture": "https://randomuser.me/api/portraits/med/women/93.jpg",
+    "gender": "female",
+    "email": "nuria.leon@example.com",
+    "dateOfBirth": "1972-07-12T20:39:35.212Z",
+    "phone": "944-895-312",
+
+    "street": "230, Calle de Ãngel GarcÃ­a",
+    "city": "Sevilla",
+    "state": "Comunidad Valenciana",
+    "country": "Spain"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109da",
+
+    "firstName": "Lance",
+    "lastName": "Foster",
+    "picture": "https://randomuser.me/api/portraits/med/men/13.jpg",
+    "gender": "male",
+    "email": "lance.foster@example.com",
+    "dateOfBirth": "1971-08-29T22:05:26.775Z",
+    "phone": "0101 451 3221",
+
+    "street": "2334, Church Street",
+    "city": "Chichester",
+    "state": "Cornwall",
+    "country": "United Kingdom"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109db",
+
+    "firstName": "Naomi",
+    "lastName": "Rodrigues",
+    "picture": "https://randomuser.me/api/portraits/med/women/39.jpg",
+    "gender": "female",
+    "email": "naomi.rodrigues@example.com",
+    "dateOfBirth": "1973-06-13T23:33:31.385Z",
+    "phone": "(40) 6623-4814",
+
+    "street": "9134, Rua Castro Alves ",
+    "city": "Garanhuns",
+    "state": "Roraima",
+    "country": "Brazil"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109dc",
+
+    "firstName": "Evan",
+    "lastName": "Roux",
+    "picture": "https://randomuser.me/api/portraits/med/men/59.jpg",
+    "gender": "male",
+    "email": "evan.roux@example.com",
+    "dateOfBirth": "1988-06-25T04:31:51.701Z",
+    "phone": "02-28-80-43-91",
+
+    "street": "892, Grande Rue",
+    "city": "BesanÃ§on",
+    "state": "Seine-et-Marne",
+    "country": "France"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109dd",
+
+    "firstName": "Miguel",
+    "lastName": "Lima",
+    "picture": "https://randomuser.me/api/portraits/med/men/31.jpg",
+    "gender": "male",
+    "email": "miguel.lima@example.com",
+    "dateOfBirth": "1979-07-05T22:21:32.623Z",
+    "phone": "(33) 1399-0495",
+
+    "street": "9637, Rua Rio de Janeiro ",
+    "city": "Cascavel",
+    "state": "AmapÃ¡",
+    "country": "Brazil"
+  }
+]

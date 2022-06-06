@@ -20,11 +20,12 @@ const ArtByStyle = () => {
 
   return (
     <Wrapper>
-      <div>
+      hello
+      {/* <div>
         {arts.map((art) => {
-          return <></>;
+          return <>hello</>;
         })}
-      </div>
+      </div> */}
     </Wrapper>
   );
 };

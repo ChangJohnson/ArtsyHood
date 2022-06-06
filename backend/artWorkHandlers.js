@@ -54,7 +54,30 @@ const getArtsByStyle = async (req, res) => {
   return res.status(404).json({ status: 404, message: 'Not found!' });
 };
 
+const postArtworksByUsers = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  console.log('connected!');
+  const db = client.db('ArtsyHood');
+
+  const artWorkFile = req.body.data;
+  const result = await db.collection('artWork').insertOne(artWorkFile);
+
+  client.close();
+  console.log('disconnected!');
+
+  result.acknowledged
+    ? res.status(200).json({
+        status: 200,
+        message: 'Success!',
+      })
+    : res
+        .status(404)
+        .json({ status: 404, message: 'It didnt upload. Please try again.' });
+};
+
 module.exports = {
   getArtsByProperty,
   getArtsByStyle,
+  postArtworksByUsers,
 };

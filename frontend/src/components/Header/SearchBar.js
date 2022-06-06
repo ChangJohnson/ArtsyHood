@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../GlobalContext';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const SearchBar = () => {
   let navigate = useNavigate();
+
+  const { isAuthenticated } = useAuth0();
 
   const { setDisplaySearchBar } = useContext(GlobalContext);
 
@@ -32,7 +35,7 @@ const SearchBar = () => {
     navigate(`/search-result/${value}`);
   };
 
-  // onClick, it will direct us to search productDetails upon clicking the search item from the dropped down of the searchBar
+  // onClick, it will direct us to userProfile with all his artWork. upon clicking the search item from the dropped down of the searchBar
   const handleSelectSuggestion = (suggestion) => {
     setDisplaySearchBar(false);
     navigate(`art/${suggestion._id}`);
@@ -49,14 +52,18 @@ const SearchBar = () => {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyUp={(e) => {
             if (e.key === 'Enter') {
-              handleSelect(e.target.value);
+              isAuthenticated
+                ? handleSelect(e.target.value)
+                : navigate('/please-signin');
             }
             handleKeyUp(e);
           }}
         />
         <Button
           onClick={() => {
-            handleSelect(inputValue);
+            isAuthenticated
+              ? handleSelect(inputValue)
+              : navigate('/please-signin');
           }}
         >
           <BiSearchAlt2 />
@@ -70,7 +77,9 @@ const SearchBar = () => {
                 <Suggestion
                   key={item._id}
                   onClick={() => {
-                    handleSelectSuggestion(item);
+                    isAuthenticated
+                      ? handleSelectSuggestion(item)
+                      : navigate('/please-signin');
                   }}
                 >
                   {' '}

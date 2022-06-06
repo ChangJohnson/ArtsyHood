@@ -1,14 +1,51 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import UserDescription from './UserDescription';
+import { useAuth0 } from '@auth0/auth0-react';
+import AskToSignin from './AskToSignin';
+import { useContext, useEffect } from 'react';
+import { GlobalContext } from './GlobalContext';
+import ArtToUrlUpload from './ArtToUrlUpload';
 
 const HomePage = () => {
   let navigate = useNavigate();
 
+  const { setIdToTrackArtWorks } = useContext(GlobalContext);
+
+  const { isAuthenticated, user } = useAuth0();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetch('/api/add/user', {
+        body: JSON.stringify({
+          user,
+        }),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === 201) {
+            console.log(data.message);
+            setIdToTrackArtWorks(data);
+          } else if (data.status === 200) {
+            console.log(data.message);
+          } else if (data.status === 404) {
+            console.log(data.message);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [user]);
+
   return (
     <Wrapper>
       <Banner src={window.location.origin + '/bannerPaint.jpeg'} />
-
+      <ArtToUrlUpload />
       <Div>
         <Div2>
           <>Choose Your Style</>
@@ -20,7 +57,9 @@ const HomePage = () => {
               <Span>Abstraction</Span>
               <Img
                 onClick={() => {
-                  navigate('/style/abstraction');
+                  isAuthenticated
+                    ? navigate('/style/abstraction')
+                    : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/abstraction.jpeg'}
               ></Img>
@@ -29,7 +68,9 @@ const HomePage = () => {
               <Span>Landscape</Span>
               <Img
                 onClick={() => {
-                  navigate('/style/landscape');
+                  isAuthenticated
+                    ? navigate('/style/landscape')
+                    : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/lanscapeArt.jpeg'}
               ></Img>
@@ -38,7 +79,9 @@ const HomePage = () => {
               <Span>Portrait</Span>
               <Img
                 onClick={() => {
-                  navigate('/style/portrait');
+                  isAuthenticated
+                    ? navigate('/style/portrait')
+                    : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/portraitArt.jpeg'}
               ></Img>
@@ -47,7 +90,9 @@ const HomePage = () => {
               <Span>Street Art</Span>
               <Img
                 onClick={() => {
-                  navigate('/style/streetArt');
+                  isAuthenticated
+                    ? navigate('/style/streetArt')
+                    : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/streetArt.jpeg'}
               ></Img>
@@ -56,7 +101,9 @@ const HomePage = () => {
               <Span>Pen and Ink</Span>
               <Img
                 onClick={() => {
-                  navigate('/style/penAndInk');
+                  isAuthenticated
+                    ? navigate('/style/penAndInk')
+                    : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/penAndInk.jpeg'}
               ></Img>
@@ -65,7 +112,9 @@ const HomePage = () => {
               <Span>Urban Art</Span>
               <Img
                 onClick={() => {
-                  navigate('/style/urbanArt');
+                  isAuthenticated
+                    ? navigate('/style/urbanArt')
+                    : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/urbanArt.jpeg'}
               ></Img>

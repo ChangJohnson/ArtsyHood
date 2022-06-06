@@ -6,6 +6,7 @@ import Footer from './Footer';
 import HomePage from './HomePage';
 import SearchResult from './SearchResult';
 import ArtByStyle from './ArtByStyle';
+import AskToSignin from './AskToSignin';
 
 const App = () => {
   return (
@@ -17,6 +18,9 @@ const App = () => {
           <Main>
             <Routes>
               <Route exact path='/' element={<HomePage />} />
+            </Routes>
+            <Routes>
+              <Route path='/please-signin' element={<AskToSignin />} />
             </Routes>
             <Routes>
               <Route
@@ -42,6 +46,7 @@ const App = () => {
             <Routes>
               <Route path='/style/urbanArt' element={<ArtByStyle />} />
             </Routes>
+
             <Footer />
           </Main>
         </BrowserRouter>

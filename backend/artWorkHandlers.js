@@ -10,15 +10,9 @@ const options = {
 
 // get the art for the searchbar
 const getArtsByProperty = async (req, res) => {
-  // const page = req.query.page ? Number(req.query.page) : 1;
-  // const limit = 20;
-  // const start = limit * (page - 1);
-
   const query = {
     [req.params.key]: { $regex: req.params.value.toLowerCase(), $options: 'i' },
   };
-
-  console.log('--------', query);
 
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
@@ -27,11 +21,8 @@ const getArtsByProperty = async (req, res) => {
 
   const result = await db.collection('artWork').find(query).toArray();
 
-  // const [total, products] = await mongoReadLimit('items', query, start, limit);
-
   client.close();
   console.log('disconnected!');
-  console.log('========', result);
 
   if (result.length > 0) {
     return res.status(200).json({
@@ -42,6 +33,9 @@ const getArtsByProperty = async (req, res) => {
   return res.status(404).json({ status: 404, message: 'Not found!' });
 };
 
+// ================================================================
+
+// TODO it is not finished
 const getArtsByStyle = async (req, res) => {
   const categories = await mongoReadDistinct('items', null, 'category');
   console.log(categories);
@@ -54,7 +48,9 @@ const getArtsByStyle = async (req, res) => {
   return res.status(404).json({ status: 404, message: 'Not found!' });
 };
 
-const postArtworksByUsers = async (req, res) => {
+// ================================================================
+
+const postArtworksByUser = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
   console.log('connected!');
@@ -76,8 +72,53 @@ const postArtworksByUsers = async (req, res) => {
         .json({ status: 404, message: 'It didnt upload. Please try again.' });
 };
 
+// ================================================================
+
+const getSingleArtwork = async (req, res) => {
+  //-----------------------------------------------------------------------------//
+  //**Check if _id is a number then convert it to the (Number).**                //
+  //I added this because initial data contains (Number) as _id but adding data_ //
+  //with endpoint contains UUidv4(string) as _id                                 //
+  //-----------------------------------------------------------------------------//
+  const { _id } = req.params;
+  try {
+    const client = new MongoClient(MONGO_URI, options);
+
+    //Connect client
+    await client.connect();
+    console.log('connected!');
+    const db = client.db('ArtsyHood');
+    //Connect client
+
+    const artWork = await db.collection('artWork').findOne({ sub: _id });
+    const artist = await db.collection('artists').findOne({ _id });
+
+    console.log('+++++++', artWork);
+    console.log('=======', artist);
+
+    //Close client
+    client.close();
+    console.log('disconnected!');
+    //Close client
+
+    if (artWork && artist) {
+      return res.status(200).json({
+        status: 200,
+        data: { ...artWork, artist },
+      });
+    }
+    return res.status(404).json({ status: 404, message: 'Not found!' });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json({ status: 500, message: error.message });
+  }
+};
+
+// ================================================================
+
 module.exports = {
   getArtsByProperty,
   getArtsByStyle,
-  postArtworksByUsers,
+  postArtworksByUser,
+  getSingleArtwork,
 };

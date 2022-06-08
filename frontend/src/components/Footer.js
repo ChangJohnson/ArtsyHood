@@ -8,7 +8,7 @@ const Footer = () => {
     <Wrapper>
       <Div>
         <Links to='/'>
-          <Logo src={window.location.origin + '/art.png'} />
+          <Logo src={window.location.origin + '/ArtsyHoodLogo.png'} />
         </Links>{' '}
       </Div>
       <Icons>
@@ -16,14 +16,45 @@ const Footer = () => {
         <BsInstagram color='white' />
         <BsFacebook color='white' />
       </Icons>
+      <TermsAndConditions>
+        <Terms>
+          <Span>Privacy Statement</Span>
+          <Span>|</Span>
+          <Span>Terms of use</Span>
+          <Span>|</Span>
+          <Span>Partners</Span>
+        </Terms>
+        <Copyright>© 2022 Foodies Company. All rights reserved.</Copyright>
+      </TermsAndConditions>
     </Wrapper>
   );
 };
+
+const Span = styled.span`
+  margin-left: 15px;
+`;
+
+const TermsAndConditions = styled.div`
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -90%);
+  position: absolute;
+  color: #ffffff;
+  display: flex;
+  display-direction: column;
+`;
+
+const Terms = styled.div``;
+
+const Copyright = styled.div``;
+
 const Div = styled.div`
   position: relative;
   display: flex;
   justify-content: left;
   align-items: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
 `;
 
 const Icons = styled.div`
@@ -39,6 +70,7 @@ const Icons = styled.div`
 
 const Wrapper = styled.div`
   position: relative;
+
   /* display: flex;
   justify-content: center;
   align-items: center; */
@@ -56,7 +88,7 @@ const Links = styled(Link)`
 `;
 
 const Logo = styled.img`
-  width: 295px;
+  width: 105px;
 `;
 
 export default Footer;

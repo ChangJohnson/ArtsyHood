@@ -2,9 +2,11 @@
 const {
   getArtsByProperty,
   getArtsByStyle,
-  postArtworksByUsers,
+  postArtworksByUser,
+  getSingleArtwork,
 } = require('./artWorkHandlers');
-const { addUser } = require('./userHandlers');
+
+const { addUser, updateUser } = require('./userHandlers');
 
 // import the needed node_modules.
 const express = require('express');
@@ -18,10 +20,12 @@ express()
 
   // artWorkHandlers
   .get('/api/arts/:key/:value', getArtsByProperty)
+  .get('/api/art/:_id', getSingleArtwork)
   .get('/api/style/:value', getArtsByStyle)
-  .post('/api/upload', postArtworksByUsers)
+  .post('/api/upload', postArtworksByUser)
 
   // userHandlers
   .post('/api/add/user', addUser)
+  .put('/api/update/user', updateUser)
 
   .listen(8000, () => console.log(`Listening on port 8000`));

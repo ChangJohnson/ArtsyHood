@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link } from 'react-router-dom';
-import { BiSearchAlt2, BiLogInCircle, BiLogOutCircle } from 'react-icons/bi';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  BiSearchAlt2,
+  BiLogInCircle,
+  BiLogOutCircle,
+  BiUpload,
+} from 'react-icons/bi';
 
 import React, { useContext } from 'react';
-import { GlobalContext } from '../GlobalContext';
+import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
 import SearchBar from './SearchBar';
 
 const Header = () => {
+  const navigate = useNavigate();
   const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
 
   const { setDisplaySearchBar, displaySearchBar } = useContext(GlobalContext);
@@ -15,24 +21,28 @@ const Header = () => {
   return (
     <Wrapper>
       <Links to='/'>
-        <Logo src={window.location.origin + '/art.png'} />
+        <Logo src={window.location.origin + '/ArtsyHoodLogo.png'} />
       </Links>
+
       <Ul>
-        {!displaySearchBar ? (
+        {!displaySearchBar && isAuthenticated ? (
           <RightSide>
-            <SearchIcon>
-              <BiSearchAlt2
-                color='white'
-                onClick={() => setDisplaySearchBar(true)}
-              />
-            </SearchIcon>
+            <Button onClick={() => setDisplaySearchBar(true)}>
+              <BiSearchAlt2 />
+            </Button>
             {!isAuthenticated ? (
               <Button onClick={() => loginWithRedirect()}>
                 <BiLogInCircle />
               </Button>
             ) : (
               <>
-                <Avatar src={user.picture}></Avatar>
+                <Avatar
+                  src={user.picture}
+                  onClick={() => navigate('/userProfile')}
+                ></Avatar>
+                <Button onClick={() => navigate('/art/upload')}>
+                  <BiUpload />
+                </Button>
                 <Button onClick={() => logout()}>
                   <BiLogOutCircle />
                 </Button>
@@ -49,9 +59,10 @@ const Header = () => {
   );
 };
 
-const SearchIcon = styled.span`
-  font-size: 25px;
-  padding-top: 8px;
+const Profile = styled.div`
+  display: flex;
+  flex-direction: column;
+  color: #fff;
 `;
 
 const Avatar = styled.img`
@@ -62,7 +73,7 @@ const Avatar = styled.img`
 `;
 
 const Logo = styled.img`
-  width: 295px;
+  max-width: 105px;
 `;
 
 const Ul = styled.ul`
@@ -85,6 +96,10 @@ const Links = styled(Link)`
   justify-content: center;
   text-decoration: none;
   margin-left: 25px;
+  &:hover {
+    cursor: pointer;
+    color: var(--color-Night-Blue);
+  }
 `;
 
 const RightSide = styled.div`
@@ -94,6 +109,7 @@ const RightSide = styled.div`
 
 const Wrapper = styled.div`
   position: sticky;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;

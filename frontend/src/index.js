@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
-import GlobalProvider from './components/GlobalContext';
+import GlobalProvider from './components/GlobalStylesAndContext/GlobalContext';
 import { Auth0Provider } from '@auth0/auth0-react';
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;

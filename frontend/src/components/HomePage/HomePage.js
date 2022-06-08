@@ -2,10 +2,9 @@ import styled from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
 import UserDescription from './UserDescription';
 import { useAuth0 } from '@auth0/auth0-react';
-import AskToSignin from './AskToSignin';
+import AskToSignin from '../AskToSignin';
 import { useContext, useEffect } from 'react';
-import { GlobalContext } from './GlobalContext';
-import ArtToUrlUpload from './ArtToUrlUpload';
+import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
 
 const HomePage = () => {
   let navigate = useNavigate();
@@ -28,12 +27,9 @@ const HomePage = () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 201) {
-            console.log(data.message);
-            setIdToTrackArtWorks(data);
-          } else if (data.status === 200) {
-            console.log(data.message);
+            setIdToTrackArtWorks(data.data);
           } else if (data.status === 404) {
-            console.log(data.message);
+            setIdToTrackArtWorks(data.data);
           }
         })
         .catch((error) => {
@@ -45,7 +41,7 @@ const HomePage = () => {
   return (
     <Wrapper>
       <Banner src={window.location.origin + '/bannerPaint.jpeg'} />
-      <ArtToUrlUpload />
+
       <Div>
         <Div2>
           <>Choose Your Style</>

@@ -2,11 +2,11 @@ import { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { BiSearchAlt2 } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from '../GlobalContext';
+import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const SearchBar = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const { isAuthenticated } = useAuth0();
 
@@ -32,13 +32,16 @@ const SearchBar = () => {
   // onClick it navigate to direct us to search items page (SearchResult) pressing the search button/icon or ENTER key
   const handleSelect = (value) => {
     setDisplaySearchBar(false);
-    navigate(`/search-result/${value}`);
+    if (inputValue && value) {
+      setDisplaySearchBar(false);
+      navigate(`/search-result/${value}`);
+    }
   };
 
   // onClick, it will direct us to userProfile with all his artWork. upon clicking the search item from the dropped down of the searchBar
   const handleSelectSuggestion = (suggestion) => {
     setDisplaySearchBar(false);
-    navigate(`art/${suggestion._id}`);
+    navigate(`/art/${suggestion.sub}`);
   };
 
   return (

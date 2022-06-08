@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import GlobalStyles from './GlobalStyles';
+import GlobalStyles from './GlobalStylesAndContext/GlobalStyles';
 import Header from './Header/Header';
 import Footer from './Footer';
-import HomePage from './HomePage';
+import HomePage from './HomePage/HomePage';
 import SearchResult from './SearchResult';
 import ArtByStyle from './ArtByStyle';
 import AskToSignin from './AskToSignin';
+import UploadArtWork from './UploadArtWork';
+import ArtWorksDetails from './ArtWorkDetails';
+import UpdateProfile from './UpdateProfile';
+import UserProfile from './UserProfile';
 
 const App = () => {
   return (
@@ -18,32 +22,32 @@ const App = () => {
           <Main>
             <Routes>
               <Route exact path='/' element={<HomePage />} />
-            </Routes>
-            <Routes>
+
               <Route path='/please-signin' element={<AskToSignin />} />
-            </Routes>
-            <Routes>
+
               <Route
                 path='/search-result/:keyword'
                 element={<SearchResult />}
               />
-            </Routes>
-            <Routes>
+
+              <Route path='/userProfile' element={<UserProfile />} />
+
+              <Route path='/updateProfile' element={<UpdateProfile />} />
+
+              <Route path='/art/:_id' element={<ArtWorksDetails />} />
+
+              <Route path='/art/upload' element={<UploadArtWork />} />
+
               <Route path='/style/abstraction' element={<ArtByStyle />} />
-            </Routes>
-            <Routes>
+
               <Route path='/style/landscape' element={<ArtByStyle />} />
-            </Routes>
-            <Routes>
+
               <Route path='/style/portrait' element={<ArtByStyle />} />
-            </Routes>
-            <Routes>
+
               <Route path='/style/streetArt' element={<ArtByStyle />} />
-            </Routes>
-            <Routes>
+
               <Route path='/style/penAndInk' element={<ArtByStyle />} />
-            </Routes>
-            <Routes>
+
               <Route path='/style/urbanArt' element={<ArtByStyle />} />
             </Routes>
 

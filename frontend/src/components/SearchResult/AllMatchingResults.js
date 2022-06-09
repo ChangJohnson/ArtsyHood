@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 // this component is used to display all the products in a grid.
 // It is used in all components that need to display the products (for example Homepage.js, Brands.js, Category.js etc)
-const ProductsList = ({ arts }) => {
+const AllMatchingResults = ({ arts }) => {
   console.log('hello', arts);
   return (
     <>
@@ -12,10 +12,10 @@ const ProductsList = ({ arts }) => {
           return (
             <Product to={`/product/${art._id}`} key={art._id}>
               <ImageContainer>
-                <Image src={window.location.origin + art.imageSrc} />
+                <Image src={art.url} />
               </ImageContainer>
               <Name>{art.name}</Name>
-              <Style>{art.styles}</Style>
+              <Style>{art.style}</Style>
               {/* <Bottom>
                 <Price>{art.price}</Price>
                 <Status className={art.numInStock > 0 ? '' : 'outOfStock'}>
@@ -94,4 +94,4 @@ const Image = styled.img`
   margin-bottom: 10px;
 `;
 
-export default ProductsList;
+export default AllMatchingResults;

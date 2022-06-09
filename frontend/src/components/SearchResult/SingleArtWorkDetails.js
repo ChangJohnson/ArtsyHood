@@ -2,17 +2,18 @@ import styled from 'styled-components';
 import { useEffect, useState, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import LoadingSpinner from './LoadingSpinner';
+import LoadingSpinner from '../LoadingSpinner';
 import { useAuth0 } from '@auth0/auth0-react';
-import SubHeader from './Header/SubHeader';
-import Error from './Error';
-import AskToSignin from './AskToSignin';
+import SubHeader from '../Header/SubHeader';
+import Error from '../Error';
+import AskToSignin from '../AskToSignin';
 
 // this component is to show the details of one specific product
-const ProductDetails = () => {
+const SingleArtWorkDetails = () => {
   let navigate = useNavigate();
-  let { _id } = useParams();
-  console.log(_id);
+  let { _id, name } = useParams();
+  console.log('======', _id);
+  console.log('++++', name);
 
   const [artWorkDetails, setArtWorkDetails] = useState();
   const { isAuthenticated } = useAuth0();
@@ -21,17 +22,18 @@ const ProductDetails = () => {
   // fetch the product details
   useEffect(() => {
     setArtWorkDetails(null);
-    fetch(`/api/art/${_id}`)
+    fetch(`/api/art/${name}/${_id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
           setArtWorkDetails(data.data);
+          console.log(data.data);
         }
         if (data.status === 404 || data.status === 400) {
           setError(data.message);
         }
       });
-  }, [_id]);
+  }, [name]);
 
   console.log(artWorkDetails);
 
@@ -44,7 +46,7 @@ const ProductDetails = () => {
   }
 
   return (
-    <>
+    <Wrapper>
       {isAuthenticated ? (
         <>
           {artWorkDetails ? (
@@ -52,9 +54,9 @@ const ProductDetails = () => {
               <Section>
                 <Body>
                   <ArtContainer>
-                    <Img src={artWorkDetails.imageSrc} alt='art' />
+                    <Img src={artWorkDetails.url} alt='art' />
                     <ItemDescription>
-                      Name:
+                      ArtName:
                       <Name>{artWorkDetails.name}</Name>
                       Style:{' '}
                       <Click
@@ -62,7 +64,16 @@ const ProductDetails = () => {
                           navigate(`/brand/${artWorkDetails.style}`)
                         }
                       >
-                        {artWorkDetails.styles}
+                        {artWorkDetails.style}
+                      </Click>
+                      <div>Artist:</div>
+                      <Click
+                        onClick={() =>
+                          // TODO: add a path for people to see artist profile
+                          navigate(`/artist/${artWorkDetails.artist.name}`)
+                        }
+                      >
+                        {artWorkDetails.artist.name}
                       </Click>
                     </ItemDescription>
                   </ArtContainer>
@@ -76,9 +87,13 @@ const ProductDetails = () => {
       ) : (
         <AskToSignin />
       )}
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  height: 80vh;
+`;
 const Section = styled.div`
   display: flex;
   justify-content: center;
@@ -126,4 +141,4 @@ const Img = styled.img`
   align-items: left;
 `;
 
-export default ProductDetails;
+export default SingleArtWorkDetails;

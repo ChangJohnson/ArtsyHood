@@ -20,7 +20,7 @@ express()
 
   // artWorkHandlers
   .get('/api/arts/:key/:value', getArtsByProperty)
-  .get('/api/art/:_id', getSingleArtwork)
+  .get('/api/art/:name/:id', getSingleArtwork)
   .get('/api/style/:value', getArtsByStyle)
   .post('/api/upload', postArtworksByUser)
 

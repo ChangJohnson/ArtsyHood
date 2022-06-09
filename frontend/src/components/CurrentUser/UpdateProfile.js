@@ -8,10 +8,9 @@ const UpdateProfile = () => {
   const { isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
 
-  const [name, setName] = useState(isAuthenticated ? user.name : null);
-
   // setting the value for all the input fields of the form
 
+  const [name, setName] = useState();
   const [address, setAddress] = useState();
   const [apt, setApt] = useState();
   const [city, setCity] = useState();
@@ -44,7 +43,7 @@ const UpdateProfile = () => {
       .then((data) => {
         if (data.status === 200) {
           console.log(data.message);
-          navigate('/ ');
+          navigate('/userProfile');
         }
         if (data.status === 404) {
           console.log(data.message);

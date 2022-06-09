@@ -25,7 +25,7 @@ const Header = () => {
       </Links>
 
       <Ul>
-        {!displaySearchBar && isAuthenticated ? (
+        {!displaySearchBar ? (
           <RightSide>
             <Button onClick={() => setDisplaySearchBar(true)}>
               <BiSearchAlt2 />
@@ -108,7 +108,7 @@ const RightSide = styled.div`
 `;
 
 const Wrapper = styled.div`
-  position: sticky;
+  position: fixed;
   top: 0;
   display: flex;
   justify-content: space-between;

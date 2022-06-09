@@ -46,7 +46,15 @@ const UploadArtWork = () => {
                 },
               }),
               headers: { 'Content-Type': 'application/json' },
-            });
+            })
+              .then((response) => {
+                response.json();
+              })
+              .then((data) => {
+                if (data.status === 200) {
+                  setArtDescription('');
+                }
+              });
           } catch (err) {
             console.log(err);
           }
@@ -66,6 +74,7 @@ const UploadArtWork = () => {
               showWidget(e);
             }}
           >
+            <div>Describe and Upload your arts here:</div>
             <DivTextArea>
               <TextArea
                 value={artDescription}
@@ -78,30 +87,28 @@ const UploadArtWork = () => {
                 cols='33'
               ></TextArea>
             </DivTextArea>
-            <DivDropDownAndButton>
-              <Select onChange={(e) => setArtSelectStyle(e.target.value)}>
-                <option value='Abstract'>Abstract</option>
-                <option value='Modern'>Modern</option>
-                <option value='Impressionist'> Impressionist</option>
-                <option value='Pop-Art'>Pop Art</option>
-                <option value='Cubism'>Cubism</option>
-                <option value='Surrealism'>Surrealism</option>
-                <option value='Contemporary'>Contemporary</option>
-                <option value='Fantasy'>Fantasy</option>
-                <option value='Graffiti'>Graffiti</option>
-                <option value='Pen-and-Ink'>Pen and Ink</option>
-                <option value='Urban Art'>Urban Art</option>
-                <option value='Landscape'>Landscape</option>
-              </Select>
+            <div>select your style:</div>
+            {/* <DivDropDownAndButton> */}
+            <Select onChange={(e) => setArtSelectStyle(e.target.value)}>
+              <option value='Abstract'>Abstract</option>
+              <option value='Portrait'>Portrait</option>
+              <option value='Modern'>Modern</option>
+              <option value='Impressionist'> Impressionist</option>
+              <option value='Pop-Art'>Pop Art</option>
+              <option value='Cubism'>Cubism</option>
+              <option value='Surrealism'>Surrealism</option>
+              <option value='Contemporary'>Contemporary</option>
+              <option value='Fantasy'>Fantasy</option>
+              <option value='Graffiti'>Graffiti</option>
+              <option value='Pen-and-Ink'>Pen and Ink</option>
+              <option value='Urban Art'>Urban Art</option>
+              <option value='Landscape'>Landscape</option>
+            </Select>
 
-              <Button
-                id='upload_widget'
-                class='cloudinary-button'
-                type='submit'
-              >
-                Upload
-              </Button>
-            </DivDropDownAndButton>
+            <Button id='upload_widget' class='cloudinary-button' type='submit'>
+              Upload
+            </Button>
+            {/* </DivDropDownAndButton> */}
           </form>
         </div>
       ) : (
@@ -111,7 +118,9 @@ const UploadArtWork = () => {
   );
 };
 
-const DivTextArea = styled.div``;
+const DivTextArea = styled.div`
+  margin-top: 10px;
+`;
 
 const DivDropDownAndButton = styled.div`
   display: flex;
@@ -121,13 +130,15 @@ const DivDropDownAndButton = styled.div`
 `;
 
 const Select = styled.select`
-  width: 120px; ;
+  width: 120px;
 `;
 
 const Button = styled.button`
   height: 25px;
   width: 55px;
   text-align: center;
+  border: none;
+  margin-left: 5px;
 `;
 
 const TextArea = styled.textarea`

@@ -75,12 +75,9 @@ const postArtworksByUser = async (req, res) => {
 // ================================================================
 
 const getSingleArtwork = async (req, res) => {
-  //-----------------------------------------------------------------------------//
-  //**Check if _id is a number then convert it to the (Number).**                //
-  //I added this because initial data contains (Number) as _id but adding data_ //
-  //with endpoint contains UUidv4(string) as _id                                 //
-  //-----------------------------------------------------------------------------//
-  const { _id } = req.params;
+  const { name, id } = req.params;
+  console.log('???????', name);
+  console.log('%%%%%', id);
   try {
     const client = new MongoClient(MONGO_URI, options);
 
@@ -90,11 +87,11 @@ const getSingleArtwork = async (req, res) => {
     const db = client.db('ArtsyHood');
     //Connect client
 
-    const artWork = await db.collection('artWork').findOne({ sub: _id });
-    const artist = await db.collection('artists').findOne({ _id });
+    const artWork = await db.collection('artWork').findOne({ name: name });
+    const artist = await db.collection('artists').findOne({ _id: id });
 
-    console.log('+++++++', artWork);
-    console.log('=======', artist);
+    console.log('=========', artWork);
+    console.log('+++++++++', artist);
 
     //Close client
     client.close();

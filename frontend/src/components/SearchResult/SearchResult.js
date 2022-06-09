@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import ProductsList from './ProductsList';
-import LoadingSpinner from './LoadingSpinner';
-import Error from './Error';
-import SubHeader from './Header/SubHeader';
+import AllMatchingResults from './AllMatchingResults';
+import LoadingSpinner from '../LoadingSpinner';
+import Error from '../Error';
+import SubHeader from '../Header/SubHeader';
 
 // this component is responsible for showing the results of all items that match the keywords in the SearchBar.js.
 const SearchResult = () => {
@@ -41,8 +41,8 @@ const SearchResult = () => {
   }
   return items ? (
     <>
-      <SubHeader title='Search results' subTitle={'keyword: ' + keyword} />
-      <ProductsList arts={items} />
+      {/* <SubHeader title='Search results' subTitle={'keyword: ' + keyword} /> */}
+      <AllMatchingResults arts={items} />
     </>
   ) : (
     <LoadingSpinner top={40} />

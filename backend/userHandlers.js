@@ -25,7 +25,6 @@ const addUser = async (req, res) => {
       given_name: user.user.given_name,
       family_name: user.user.family_name,
       nickname: user.user.nickname,
-      name: user.user.name,
       picture: user.user.picture,
       locale: user.user.locale,
       updated_at: user.user.updated_at,
@@ -75,13 +74,12 @@ const updateUser = async (req, res) => {
   //Connect client
   console.log('+++++++++++++++', user);
 
-  const findUser = await db.collection('artists').findOne({ _id: user.userId });
-  console.log('================', findUser);
+  console.log('================', user.name);
 
   const checkId = { _id: user.userId };
   const update = {
     $set: {
-      name: user.name ? user.name : findUser.name,
+      name: user.name,
       address: user.address,
       apt: user.apt,
       city: user.city,
@@ -93,6 +91,8 @@ const updateUser = async (req, res) => {
   };
 
   const result = await db.collection('artists').updateOne(checkId, update);
+
+  console.log('-----------', result);
 
   //Close client
   client.close();
@@ -109,5 +109,7 @@ const updateUser = async (req, res) => {
         message: 'User fail to update!',
       });
 };
+
+// ================================================================
 
 module.exports = { addUser, updateUser };

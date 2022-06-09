@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate, Link } from 'react-router-dom';
-import UserDescription from './UserDescription';
+import Description from './Description';
 import { useAuth0 } from '@auth0/auth0-react';
 import AskToSignin from '../AskToSignin';
 import { useContext, useEffect } from 'react';
@@ -9,34 +9,34 @@ import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
 const HomePage = () => {
   let navigate = useNavigate();
 
-  const { setIdToTrackArtWorks } = useContext(GlobalContext);
+  // const { setIdToTrackArtWorks } = useContext(GlobalContext);
 
   const { isAuthenticated, user } = useAuth0();
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      fetch('/api/add/user', {
-        body: JSON.stringify({
-          user,
-        }),
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.status === 201) {
-            setIdToTrackArtWorks(data.data);
-          } else if (data.status === 404) {
-            setIdToTrackArtWorks(data.data);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     fetch('/api/add/user', {
+  //       body: JSON.stringify({
+  //         user,
+  //       }),
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         if (data.status === 201) {
+  //           setIdToTrackArtWorks(data.data);
+  //         } else if (data.status === 404) {
+  //           setIdToTrackArtWorks(data.data);
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  // }, [user]);
 
   return (
     <Wrapper>
@@ -117,7 +117,7 @@ const HomePage = () => {
             </DivEffect>
           </Styles>
         </Flex>
-        <UserDescription />
+        <Description />
       </Div>
     </Wrapper>
   );

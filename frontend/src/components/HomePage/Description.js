@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function UserDescription() {
+const Description = () => {
   return (
     <Wrapper>
       <Flex>
@@ -74,7 +74,7 @@ function UserDescription() {
       </Flex>
     </Wrapper>
   );
-}
+};
 
 const ArtistName = styled.div`
   margin-bottom: 15px;
@@ -114,4 +114,4 @@ const Img = styled.img`
   border-radius: 7%;
 `;
 
-export default UserDescription;
+export default Description;

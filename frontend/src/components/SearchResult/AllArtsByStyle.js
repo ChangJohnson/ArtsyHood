@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
-const ArtByStyle = () => {
+const AllArtsByStyle = () => {
   const { artStyle } = useParams();
 
   const [arts, setArts] = useState();
@@ -36,4 +36,4 @@ const Wrapper = styled.div`
   height: calc(100vh - 110px);
   background-color: var(--color-Sand-Tan);
 `;
-export default ArtByStyle;
+export default AllArtsByStyle;

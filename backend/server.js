@@ -4,6 +4,10 @@ const {
   getArtsByStyle,
   postArtworksByUser,
   getSingleArtwork,
+  getAllOfUserArtWork,
+  postComments,
+  getPictureById,
+  patchUpdateLikes,
 } = require('./artWorkHandlers');
 
 const { addUser, updateUser } = require('./userHandlers');
@@ -23,6 +27,14 @@ express()
   .get('/api/art/:name/:id', getSingleArtwork)
   .get('/api/style/:value', getArtsByStyle)
   .post('/api/upload', postArtworksByUser)
+  .get('/api/all-art-work/:id', getAllOfUserArtWork)
+
+  // post and get comments and updateLikes
+  .post('/api/post-comment', postComments)
+  .get('/api/art-by/:_id', getPictureById)
+  .patch('/api/update-likes', patchUpdateLikes)
+
+  // ========================================
 
   // userHandlers
   .post('/api/add/user', addUser)

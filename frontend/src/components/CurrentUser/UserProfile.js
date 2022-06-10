@@ -47,8 +47,8 @@ const CheckUpArt = styled.div`
 `;
 
 const Wrapper = styled.div`
-  height: 80vh;
-  max-width: 100%;
+  min-height: calc(100vh - 350px);
+  /* max-width: 100%; */
 `;
 
 const IconUpdateProfile = styled.div`

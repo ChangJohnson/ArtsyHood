@@ -12,8 +12,6 @@ import AskToSignin from '../AskToSignin';
 const SingleArtWorkDetails = () => {
   let navigate = useNavigate();
   let { _id, name } = useParams();
-  console.log('======', _id);
-  console.log('++++', name);
 
   const [artWorkDetails, setArtWorkDetails] = useState();
   const { isAuthenticated } = useAuth0();

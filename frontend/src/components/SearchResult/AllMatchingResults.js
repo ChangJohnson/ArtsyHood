@@ -1,17 +1,21 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { useNavigate, useParams } from 'react-router-dom';
 // this component is used to display all the products in a grid.
 // It is used in all components that need to display the products (for example Homepage.js, Brands.js, Category.js etc)
 const AllMatchingResults = ({ arts }) => {
-  console.log('hello', arts);
+  const navigate = useNavigate();
   return (
     <>
       <Products>
         {arts?.map((art) => {
           return (
             <Product to={`/product/${art._id}`} key={art._id}>
-              <ImageContainer>
+              <ImageContainer
+                onClick={() => {
+                  navigate('/art-detail/:_id');
+                }}
+              >
                 <Image src={art.url} />
               </ImageContainer>
               <Name>{art.name}</Name>

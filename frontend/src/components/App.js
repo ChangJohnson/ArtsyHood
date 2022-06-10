@@ -12,6 +12,7 @@ import SingleArtWorkDetails from './SearchResult/SingleArtWorkDetails';
 import UpdateProfile from './CurrentUser/UpdateProfile';
 import UserProfile from './CurrentUser/UserProfile';
 import AllOfUserArtWorks from './CurrentUser/AllOfUserArtWorks';
+import ArtDetails from './ArtDetails';
 
 const App = () => {
   return (
@@ -25,6 +26,8 @@ const App = () => {
               <Route exact path='/' element={<HomePage />} />
 
               <Route path='/please-signin' element={<AskToSignin />} />
+
+              <Route path='/art-detail/:_id' element={<ArtDetails />} />
 
               <Route
                 path='/search-result/:keyword'
@@ -65,13 +68,13 @@ const App = () => {
 };
 
 const Wrapper = styled.div`
-  width: 100%;
+  /* width: 100%; */
 `;
 
 const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 110px);
+  /* display: flex;
+  flex-direction: column; */
+  min-height: calc(100vh - 350px);
   min-width: 1024px;
 `;
 

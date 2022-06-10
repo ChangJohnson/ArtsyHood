@@ -108,8 +108,8 @@ const RightSide = styled.div`
 `;
 
 const Wrapper = styled.div`
-  position: fixed;
-  top: 0;
+  /* position: fixed;
+  top: 0; */
   display: flex;
   justify-content: space-between;
   align-items: center;

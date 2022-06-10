@@ -43,6 +43,9 @@ const UploadArtWork = () => {
                   sub: idToTrackArtWorks,
                   name: artDescription,
                   style: artSelectStyle,
+                  numOfLikes: [],
+                  numOfComments: 0,
+                  comments: [],
                 },
               }),
               headers: { 'Content-Type': 'application/json' },
@@ -53,6 +56,7 @@ const UploadArtWork = () => {
               .then((data) => {
                 if (data.status === 200) {
                   setArtDescription('');
+                  console.log(data.message);
                 }
               });
           } catch (err) {

@@ -38,7 +38,7 @@ const Header = () => {
               <>
                 <Avatar
                   src={user.picture}
-                  onClick={() => navigate('/userProfile')}
+                  onClick={() => navigate(`/userProfile/${user.sub}`)}
                 ></Avatar>
                 <Button onClick={() => navigate('/art/upload')}>
                   <BiUpload />

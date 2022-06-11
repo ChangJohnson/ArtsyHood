@@ -54,7 +54,7 @@ const HomePage = () => {
               <Img
                 onClick={() => {
                   isAuthenticated
-                    ? navigate('/style/abstraction')
+                    ? navigate('/style/Abstraction')
                     : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/abstraction.jpeg'}
@@ -65,7 +65,7 @@ const HomePage = () => {
               <Img
                 onClick={() => {
                   isAuthenticated
-                    ? navigate('/style/landscape')
+                    ? navigate('/style/Landscape')
                     : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/lanscapeArt.jpeg'}
@@ -76,7 +76,7 @@ const HomePage = () => {
               <Img
                 onClick={() => {
                   isAuthenticated
-                    ? navigate('/style/portrait')
+                    ? navigate('/style/Portrait')
                     : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/portraitArt.jpeg'}
@@ -87,7 +87,7 @@ const HomePage = () => {
               <Img
                 onClick={() => {
                   isAuthenticated
-                    ? navigate('/style/streetArt')
+                    ? navigate('/style/Street-Art')
                     : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/streetArt.jpeg'}
@@ -98,7 +98,7 @@ const HomePage = () => {
               <Img
                 onClick={() => {
                   isAuthenticated
-                    ? navigate('/style/penAndInk')
+                    ? navigate('/style/PenAndInk')
                     : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/penAndInk.jpeg'}
@@ -109,7 +109,7 @@ const HomePage = () => {
               <Img
                 onClick={() => {
                   isAuthenticated
-                    ? navigate('/style/urbanArt')
+                    ? navigate('/style/Urban-Art')
                     : navigate('/please-signin');
                 }}
                 src={window.location.origin + '/urbanArt.jpeg'}

@@ -30,6 +30,7 @@ const addUser = async (req, res) => {
       updated_at: user.user.updated_at,
       email: user.user.email,
       email_verified: user.user.email_verified,
+      followings: [],
     },
   };
   const upsert = { upsert: true };
@@ -112,4 +113,74 @@ const updateUser = async (req, res) => {
 
 // ================================================================
 
-module.exports = { addUser, updateUser };
+// get user by Id
+const getUser = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+
+  const db = client.db('ArtsyHood');
+  const result = await db
+    .collection('artists')
+    .findOne({ _id: req.params._id });
+
+  result
+    ? res.status(200).json({ status: 200, data: result })
+    : res.status(404).json({ status: 404, data: 'Not Found' });
+
+  client.close();
+};
+
+// ================================================================
+
+// follow and unFollow TODO
+const updateFollow = async (req, res) => {
+  const { _id, user } = req.body;
+  console.log('.....', req.body);
+  const client = new MongoClient(MONGO_URI, options);
+  await client.connect();
+  const db = client.db('ArtsyHood');
+
+  const searchResult = await db
+    .collection('artists')
+    .findOne({ _id: user, followings: [{ _id }] });
+  console.log('======', searchResult);
+  if (searchResult === null) {
+    const addFollow = await db.collection('artists').updateOne(
+      { _id: user },
+      {
+        $push: {
+          followings: {
+            _id,
+          },
+        },
+      }
+    );
+
+    client.close();
+    console.log('44444444', addFollow);
+    addFollow.modifiedCount === 1
+      ? res.status(200).json({ status: 200, message: 'Successfully followed' })
+      : res.status(404).json({ status: 404, message: 'Not Found' });
+  } else {
+    const removeFollow = await db.collection('artists').updateOne(
+      { _id: user },
+      {
+        $pull: {
+          followings: {
+            _id,
+          },
+        },
+      }
+    );
+
+    client.close();
+    console.log('546546546', removeFollow);
+    removeFollow.modifiedCount === 1
+      ? res
+          .status(201)
+          .json({ status: 201, message: 'Successfully unfollowed' })
+      : res.status(404).json({ status: 404, message: 'Not Found' });
+  }
+};
+
+module.exports = { addUser, updateUser, getUser, updateFollow };

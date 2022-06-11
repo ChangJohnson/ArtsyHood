@@ -8,7 +8,7 @@ import SubHeader from '../Header/SubHeader';
 // this component is responsible for showing the results of all items that match the keywords in the SearchBar.js.
 const SearchResult = () => {
   const { keyword } = useParams();
-  console.log(keyword);
+
   const [error, setError] = useState();
 
   // this state is passing down to ProductList component

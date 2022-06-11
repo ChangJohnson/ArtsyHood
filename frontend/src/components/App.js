@@ -11,7 +11,7 @@ import UploadArtWork from './UploadArtWork';
 import SingleArtWorkDetails from './SearchResult/SingleArtWorkDetails';
 import UpdateProfile from './CurrentUser/UpdateProfile';
 import UserProfile from './CurrentUser/UserProfile';
-import AllOfUserArtWorks from './CurrentUser/AllOfUserArtWorks';
+import AllOfSelectedUserArtWorks from './CurrentUser/AllOfSelectedUserArtWorks';
 import ArtDetails from './ArtDetails';
 
 const App = () => {
@@ -33,9 +33,12 @@ const App = () => {
                 path='/search-result/:keyword'
                 element={<SearchResult />}
               />
-              <Route path='/yourArts' element={<AllOfUserArtWorks />} />
+              <Route
+                path='/artistArts/:id'
+                element={<AllOfSelectedUserArtWorks />}
+              />
 
-              <Route path='/userProfile' element={<UserProfile />} />
+              <Route path='/userProfile/:_id' element={<UserProfile />} />
 
               <Route path='/updateProfile' element={<UpdateProfile />} />
 
@@ -46,30 +49,20 @@ const App = () => {
 
               <Route path='/art/upload' element={<UploadArtWork />} />
 
-              <Route path='/style/abstraction' element={<AllArtsByStyle />} />
-
-              <Route path='/style/landscape' element={<AllArtsByStyle />} />
-
-              <Route path='/style/portrait' element={<AllArtsByStyle />} />
-
-              <Route path='/style/streetArt' element={<AllArtsByStyle />} />
-
-              <Route path='/style/penAndInk' element={<AllArtsByStyle />} />
-
-              <Route path='/style/urbanArt' element={<AllArtsByStyle />} />
+              <Route path='/style/:style' element={<AllArtsByStyle />} />
             </Routes>
-
-            <Footer />
           </Main>
+          <FooterCss>
+            <Footer />
+          </FooterCss>
         </BrowserRouter>
       </Wrapper>
     </>
   );
 };
 
-const Wrapper = styled.div`
-  /* width: 100%; */
-`;
+const Wrapper = styled.div``;
+const FooterCss = styled.div``;
 
 const Main = styled.div`
   /* display: flex;

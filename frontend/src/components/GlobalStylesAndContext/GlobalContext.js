@@ -7,6 +7,9 @@ const GlobalProvider = ({ children }) => {
   const [displaySearchBar, setDisplaySearchBar] = useState(false);
   const { isAuthenticated, user } = useAuth0();
   const [idToTrackArtWorks, setIdToTrackArtWorks] = useState({});
+  const [like, setLike] = useState();
+  const [artWorkDetails, setArtWorkDetails] = useState();
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -33,6 +36,29 @@ const GlobalProvider = ({ children }) => {
     }
   }, [user]);
 
+  const handleLikes = () => {
+    if (artWorkDetails) {
+      fetch('/api/update-likes', {
+        body: JSON.stringify({
+          _id: artWorkDetails._id,
+          user: user.sub,
+        }),
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === 200) {
+            setLike(true);
+          } else {
+            setLike(false);
+          }
+        });
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -40,6 +66,13 @@ const GlobalProvider = ({ children }) => {
         setDisplaySearchBar,
         idToTrackArtWorks,
         setIdToTrackArtWorks,
+        like,
+        setLike,
+        handleLikes,
+        artWorkDetails,
+        setArtWorkDetails,
+        load,
+        setLoad,
       }}
     >
       {children}

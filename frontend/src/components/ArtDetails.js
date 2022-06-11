@@ -21,7 +21,7 @@ const ArtDetails = () => {
       .then((data) => {
         if (data.status === 200) {
           setArtInfo(data.data);
-          console.log(data.message);
+
           setCheckState(true);
         }
       })
@@ -31,27 +31,24 @@ const ArtDetails = () => {
   }, [_id]);
 
   const handleLikes = () => {
-    // setLoading(false);
-    // if (like) {
-    //   setLike(false);
-    // } else {
-    //   setLike(true);
-    // }
-    // setLoading(true);
-    // if (loading) {
     fetch('/api/update-likes', {
       body: JSON.stringify({
         _id: artInfo._id,
         user: user.sub,
-        setLike: like,
       }),
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-    console.log('test');
-    // }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 200) {
+          setLike(true);
+        } else {
+          setLike(false);
+        }
+      });
   };
 
   return (
@@ -61,8 +58,10 @@ const ArtDetails = () => {
           <Img src={artInfo.url}></Img>
           <div>{artInfo.name}</div>
           <div>{artInfo.style}</div>
-          <div>Comments:{artInfo.numOfComments}</div>
-          <div onClick={() => handleLikes()}>Likes:{artInfo.numOfLikes}</div>
+          <div>
+            Comments:{artInfo.numOfComments ? artInfo.numOfComments : 0}
+          </div>
+          <div onClick={() => handleLikes()}>Likes:{like ? 1 : 0}</div>
           <Comments artInfo={artInfo} />
         </>
       )}

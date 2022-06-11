@@ -69,9 +69,11 @@ const Icons = styled.div`
 `;
 
 const Wrapper = styled.div`
-  position: relative;
   position: fixed;
   bottom: 0;
+
+  /* position: absolute;
+  bottom: 0; */
 
   /* display: flex;
   justify-content: center;

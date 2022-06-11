@@ -98,14 +98,14 @@ const UploadArtWork = () => {
               <option value='Portrait'>Portrait</option>
               <option value='Modern'>Modern</option>
               <option value='Impressionist'> Impressionist</option>
-              <option value='Pop-Art'>Pop Art</option>
+              <option value='Pop-Art'>Pop-Art</option>
               <option value='Cubism'>Cubism</option>
               <option value='Surrealism'>Surrealism</option>
               <option value='Contemporary'>Contemporary</option>
               <option value='Fantasy'>Fantasy</option>
               <option value='Graffiti'>Graffiti</option>
-              <option value='Pen-and-Ink'>Pen and Ink</option>
-              <option value='Urban Art'>Urban Art</option>
+              <option value='Pen-and-Ink'>Pen-and-Ink</option>
+              <option value='Urban-Art'>Urban-Art</option>
               <option value='Landscape'>Landscape</option>
             </Select>
 

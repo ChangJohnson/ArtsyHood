@@ -1,31 +1,28 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // this component is used to display all the products in a grid.
 // It is used in all components that need to display the products (for example Homepage.js, Brands.js, Category.js etc)
 const AllMatchingResults = ({ arts }) => {
   const navigate = useNavigate();
+  console.log(arts);
   return (
     <>
       <Products>
         {arts?.map((art) => {
           return (
-            <Product to={`/product/${art._id}`} key={art._id}>
-              <ImageContainer
-                onClick={() => {
-                  navigate('/art-detail/:_id');
-                }}
-              >
+            <Product
+              onClick={() => {
+                navigate(`/art/${art.name}/${art.sub}`);
+                // navigate(`/art-detail/${art._id}`);
+              }}
+              key={art._id}
+            >
+              <ImageContainer>
                 <Image src={art.url} />
               </ImageContainer>
               <Name>{art.name}</Name>
               <Style>{art.style}</Style>
-              {/* <Bottom>
-                <Price>{art.price}</Price>
-                <Status className={art.numInStock > 0 ? '' : 'outOfStock'}>
-                  {art.numInStock > 0 ? 'In Stock' : 'Out of stock'}
-                </Status>
-              </Bottom> */}
             </Product>
           );
         })}
@@ -44,7 +41,7 @@ const Products = styled.div`
 
   margin-bottom: 50px;
 `;
-const Product = styled(Link)`
+const Product = styled.div`
   border: 1px solid #cccccc;
   margin: 10px;
   padding: 10px;

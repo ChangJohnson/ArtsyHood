@@ -43,7 +43,7 @@ const UpdateProfile = () => {
       .then((data) => {
         if (data.status === 200) {
           console.log(data.message);
-          navigate('/userProfile');
+          navigate(`/userProfile/${user.sub}`);
         }
         if (data.status === 404) {
           console.log(data.message);

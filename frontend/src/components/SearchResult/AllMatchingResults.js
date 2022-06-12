@@ -1,11 +1,20 @@
 // import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { AiFillHeart } from 'react-icons/ai';
+import { useContext } from 'react';
+import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
+import { useAuth0 } from '@auth0/auth0-react';
+import AskToSignin from '../AskToSignin';
 // this component is used to display all the products in a grid.
 // It is used in all components that need to display the products (for example Homepage.js, Brands.js, Category.js etc)
 const AllMatchingResults = ({ arts }) => {
   const navigate = useNavigate();
-  console.log(arts);
+  const { isAuthenticated, user } = useAuth0();
+
+  const { like, handleLikes, handleFollow, follow, artWorkDetails } =
+    useContext(GlobalContext);
+
   return (
     <>
       <Products>
@@ -23,6 +32,29 @@ const AllMatchingResults = ({ arts }) => {
               </ImageContainer>
               <Name>{art.name}</Name>
               <Style>{art.style}</Style>
+              {user.sub === artWorkDetails.sub ? (
+                <>
+                  <div onClick={() => handleLikes()}>
+                    <Title>Like:</Title>
+                    <Name>
+                      <HeartIcon>
+                        <AiFillHeart
+                          fill={like ? 'rgb(224, 36, 94)' : 'black'}
+                        />
+                      </HeartIcon>
+                    </Name>
+                  </div>
+                  <div>
+                    {follow ? (
+                      <button onClick={() => handleFollow()}>Unfollow</button>
+                    ) : (
+                      <button onClick={() => handleFollow()}>Follow</button>
+                    )}
+                  </div>
+                </>
+              ) : (
+                ''
+              )}
             </Product>
           );
         })}
@@ -30,6 +62,10 @@ const AllMatchingResults = ({ arts }) => {
     </>
   );
 };
+
+const HeartIcon = styled.div``;
+
+const Title = styled.span``;
 
 const Style = styled.div``;
 

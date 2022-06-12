@@ -7,6 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import SubHeader from '../Header/SubHeader';
 import Error from '../Error';
 import { AiFillHeart } from 'react-icons/ai';
+import { RiUserFollowFill, RiUserUnfollowLine } from 'react-icons/ri';
 import AskToSignin from '../AskToSignin';
 import Comments from '../Comments';
 import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
@@ -16,8 +17,14 @@ const SingleArtWorkDetails = () => {
   let navigate = useNavigate();
   let { _id, name } = useParams();
 
-  const { like, artWorkDetails, setArtWorkDetails, handleLikes } =
-    useContext(GlobalContext);
+  const {
+    like,
+    artWorkDetails,
+    setArtWorkDetails,
+    handleLikes,
+    follow,
+    handleFollow,
+  } = useContext(GlobalContext);
 
   // const [artWorkDetails, setArtWorkDetails] = useState();
   const { isAuthenticated, user } = useAuth0();
@@ -98,7 +105,6 @@ const SingleArtWorkDetails = () => {
                     <Title>Artist:</Title>
                     <Name
                       onClick={() =>
-                        // TODO: add a path for people to see artist profile
                         navigate(`/artistArts/${artWorkDetails.artist._id}`)
                       }
                     >
@@ -107,26 +113,41 @@ const SingleArtWorkDetails = () => {
                   </div>
                   <div>
                     <Title>Comments:</Title>
-                    <Name>
+                    <span>
                       {artWorkDetails.numOfComments
                         ? artWorkDetails.numOfComments
                         : 0}
-                    </Name>
+                    </span>
                   </div>
                   {user.sub === artWorkDetails.sub ? (
                     ''
                   ) : (
                     <>
-                      <div onClick={() => handleLikes()}>
+                      <Div onClick={() => handleLikes()}>
                         <Title>Like:</Title>
                         <Name>
-                          <HeartIcon>
-                            <AiFillHeart
-                              fill={like ? 'rgb(224, 36, 94)' : 'black'}
-                            />
-                          </HeartIcon>
+                          <AiFillHeart
+                            fill={like ? 'rgb(224, 36, 94)' : 'black'}
+                          />
                         </Name>
-                      </div>
+                      </Div>
+                      <Div>
+                        {follow ? (
+                          <>
+                            <span>CLick to unfollow: </span>
+                            <Button onClick={() => handleFollow()}>
+                              <RiUserUnfollowLine color={'black'} />
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            <span>Click to Follow: </span>
+                            <Button onClick={() => handleFollow()}>
+                              <RiUserFollowFill fill={'#e1b382'} />
+                            </Button>
+                          </>
+                        )}
+                      </Div>
                       <Comments artInfo={artWorkDetails} />
                     </>
                   )}
@@ -144,7 +165,18 @@ const SingleArtWorkDetails = () => {
   );
 };
 
-const HeartIcon = styled.div``;
+const Div = styled.div`
+  width: fit-content;
+`;
+
+const Button = styled.button`
+  border: none;
+  background-color: transparent;
+  width: 45px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 
 const Title = styled.span``;
 
@@ -167,7 +199,7 @@ const Product = styled.div`
   text-decoration: none;
   text-align: center;
   color: black;
-  cursor: pointer;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;

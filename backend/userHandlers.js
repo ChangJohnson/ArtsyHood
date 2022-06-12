@@ -30,7 +30,6 @@ const addUser = async (req, res) => {
       updated_at: user.user.updated_at,
       email: user.user.email,
       email_verified: user.user.email_verified,
-      followings: [],
     },
   };
   const upsert = { upsert: true };

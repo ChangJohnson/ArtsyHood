@@ -2,19 +2,21 @@ import styled from 'styled-components';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import UpdateProfile from './UpdateProfile';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { ImProfile } from 'react-icons/im';
 import { SiArtstation } from 'react-icons/si';
+import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
 // import { SingleArtWorkDetails } from '../SearchResult/SingleArtWorkDetails';
 
 const UserProfile = () => {
   const { isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
   let { _id } = useParams();
-
-  const [userData, setUserData] = useState();
+  const { userData, setUserData, follow, setFollow, handleFollow } =
+    useContext(GlobalContext);
+  // const [userData, setUserData] = useState();
   const [loading, setLoading] = useState(true);
-  const [follow, setFollow] = useState(false);
+  // const [follow, setFollow] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -30,28 +32,28 @@ const UserProfile = () => {
       });
   }, [_id]);
 
-  const handleFollow = () => {
-    console.log('click');
+  // const handleFollow = () => {
+  //   console.log('click');
 
-    fetch('/api/follow', {
-      body: JSON.stringify({
-        _id: userData._id,
-        user: user.sub,
-      }),
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.status === 200) {
-          setFollow(true);
-        } else {
-          setFollow(false);
-        }
-      });
-  };
+  //   fetch('/api/follow', {
+  //     body: JSON.stringify({
+  //       _id: userData._id,
+  //       user: user.sub,
+  //     }),
+  //     method: 'PATCH',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.status === 200) {
+  //         setFollow(true);
+  //       } else {
+  //         setFollow(false);
+  //       }
+  //     });
+  // };
 
   return (
     <>

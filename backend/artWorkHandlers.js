@@ -35,7 +35,6 @@ const getArtsByProperty = async (req, res) => {
 
 // ================================================================
 
-// TODO it is not finished
 const getArtsByStyle = async (req, res) => {
   const { style } = req.params;
 
@@ -293,7 +292,9 @@ const patchUpdateLikes = async (req, res) => {
     //Close client
 
     addLike.modifiedCount === 1
-      ? res.status(200).json({ status: 200, message: 'Successfully Liked' })
+      ? res
+          .status(200)
+          .json({ status: 200, data: _id, message: 'Successfully Liked' })
       : res.status(404).json({ status: 404, message: 'Not Found' });
   } else {
     const removeLike = await db.collection('artWork').updateOne(
@@ -312,9 +313,47 @@ const patchUpdateLikes = async (req, res) => {
     console.log('disconnected!');
     //Close client
     removeLike.modifiedCount === 1
-      ? res.status(201).json({ status: 201, message: 'Successfully Unliked' })
+      ? res
+          .status(201)
+          .json({ status: 201, data: _id, message: 'Successfully Unliked' })
       : res.status(404).json({ status: 404, message: 'Not Found' });
   }
+};
+
+// ===========================================================
+// get Likes on mount
+const getLikes = async (req, res) => {
+  const { user } = req.params;
+
+  const client = new MongoClient(MONGO_URI, options);
+
+  //Connect client
+  await client.connect();
+  console.log('connected!');
+  const db = client.db('ArtsyHood');
+  //Connect client
+
+  const likes = await db
+    .collection('artWork')
+    .find({ numOfLikes: [{ user: user }] })
+    .toArray();
+
+  //Close client
+  client.close();
+  console.log('disconnected!');
+  //Close client
+
+  const allLikes = likes.map((like) => {
+    return like._id;
+  });
+
+  if (likes.length > 0) {
+    return res.status(200).json({
+      status: 200,
+      data: allLikes,
+    });
+  }
+  return res.status(404).json({ status: 404, message: 'Not found!' });
 };
 
 module.exports = {
@@ -327,4 +366,5 @@ module.exports = {
   postComments,
   patchUpdateLikes,
   deleteComment,
+  getLikes,
 };

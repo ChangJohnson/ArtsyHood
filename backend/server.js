@@ -9,6 +9,7 @@ const {
   getPictureById,
   patchUpdateLikes,
   deleteComment,
+  getLikes,
 } = require('./artWorkHandlers');
 
 const {
@@ -40,6 +41,7 @@ express()
   .get('/api/art-by/:_id', getPictureById)
   .patch('/api/update-likes', patchUpdateLikes)
   .delete('/api/delete-comment', deleteComment)
+  .get('/api/get-all-likes/:user', getLikes)
 
   // ========================================
 

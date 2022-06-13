@@ -14,16 +14,17 @@ import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
 
 // this component is to show the details of one specific product
 const SingleArtWorkDetails = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   let { _id, name } = useParams();
 
   const {
-    like,
+    allLikes,
     artWorkDetails,
     setArtWorkDetails,
     handleLikes,
     follow,
     handleFollow,
+    allFollowings,
   } = useContext(GlobalContext);
 
   // const [artWorkDetails, setArtWorkDetails] = useState();
@@ -82,13 +83,7 @@ const SingleArtWorkDetails = () => {
             {artWorkDetails ? (
               <Product>
                 <ImageContainer>
-                  <Image
-                    src={artWorkDetails.url}
-                    alt='art'
-                    onClick={() => {
-                      navigate(`/art-detail/${artWorkDetails._id}`);
-                    }}
-                  />
+                  <Image src={artWorkDetails.url} alt='art' />
                 </ImageContainer>
                 <div>
                   <Title>ArtName:</Title>
@@ -114,8 +109,8 @@ const SingleArtWorkDetails = () => {
                   <div>
                     <Title>Comments:</Title>
                     <span>
-                      {artWorkDetails.numOfComments
-                        ? artWorkDetails.numOfComments
+                      {artWorkDetails.comments
+                        ? artWorkDetails.comments.length
                         : 0}
                     </span>
                   </div>
@@ -123,31 +118,66 @@ const SingleArtWorkDetails = () => {
                     ''
                   ) : (
                     <>
-                      <Div onClick={() => handleLikes()}>
+                      <div onClick={() => handleLikes(artWorkDetails._id)}>
                         <Title>Like:</Title>
                         <Name>
-                          <AiFillHeart
-                            fill={like ? 'rgb(224, 36, 94)' : 'black'}
-                          />
+                          {allLikes?.length > 0 ? (
+                            <>
+                              {allLikes?.some((like) => {
+                                return like === artWorkDetails._id;
+                              }) ? (
+                                <AiFillHeart fill={'rgb(224, 36, 94)'} />
+                              ) : (
+                                <AiFillHeart fill={'black'} />
+                              )}
+                            </>
+                          ) : (
+                            <AiFillHeart fill={'black'} />
+                          )}
                         </Name>
-                      </Div>
-                      <Div>
-                        {follow ? (
+                      </div>
+
+                      <div>
+                        {allFollowings?.length > 0 ? (
                           <>
-                            <span>CLick to unfollow: </span>
-                            <Button onClick={() => handleFollow()}>
-                              <RiUserUnfollowLine color={'black'} />
-                            </Button>
+                            {allFollowings?.some((following) => {
+                              return following === artWorkDetails.sub;
+                            }) ? (
+                              <div>
+                                <span>CLick to unfollow: </span>
+                                <Button
+                                  onClick={() =>
+                                    handleFollow(artWorkDetails.sub)
+                                  }
+                                >
+                                  <RiUserFollowFill fill={'#2d545e'} />
+                                </Button>
+                              </div>
+                            ) : (
+                              <div>
+                                <span>Click to Follow: </span>
+                                <Button
+                                  onClick={() =>
+                                    handleFollow(artWorkDetails.sub)
+                                  }
+                                >
+                                  <RiUserUnfollowLine color={'black'} />
+                                </Button>
+                              </div>
+                            )}{' '}
                           </>
                         ) : (
-                          <>
+                          <div>
                             <span>Click to Follow: </span>
-                            <Button onClick={() => handleFollow()}>
-                              <RiUserFollowFill fill={'#e1b382'} />
+                            <Button
+                              onClick={() => handleFollow(artWorkDetails.sub)}
+                            >
+                              <RiUserUnfollowLine color={'black'} />
                             </Button>
-                          </>
+                          </div>
                         )}
-                      </Div>
+                      </div>
+
                       <Comments artInfo={artWorkDetails} />
                     </>
                   )}

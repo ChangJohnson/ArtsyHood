@@ -16,7 +16,7 @@ const AllArtsByStyle = () => {
 
   const [loading, setLoading] = useState(false);
   // const [arts, setArts] = useState();
-  const { allLikes, handleLikes, follow, handleFollow, arts, setArts } =
+  const { allLikes, handleLikes, handleFollow, arts, setArts, allFollowings } =
     useContext(GlobalContext);
 
   useEffect(() => {
@@ -44,27 +44,30 @@ const AllArtsByStyle = () => {
               {arts?.map((art) => {
                 return (
                   <Product key={art._id}>
+                    {console.log('hello', art._id)}
                     <ImageContainer>
                       <Img
                         src={art.url}
                         alt='art'
                         onClick={() => {
-                          navigate(`/art-detail/${art._id}`);
+                          navigate(`/art/${art.name}/${art.sub}`);
                         }}
                       />
                     </ImageContainer>
                     <div>
                       <Title>ArtName:</Title>
-                      <span>{art.name}</span>
+                      <Name
+                        onClick={() => {
+                          navigate(`/art/${art.name}/${art.sub}`);
+                        }}
+                      >
+                        {art.name}
+                      </Name>
                       <div>
                         <Title>Style: </Title>
                         <Name>{art.style}</Name>
                       </div>
 
-                      <div>
-                        <Title>Comments:</Title>
-                        <span>{art.numOfComments ? art.numOfComments : 0}</span>
-                      </div>
                       {user.sub === art.sub ? (
                         ''
                       ) : (
@@ -87,20 +90,37 @@ const AllArtsByStyle = () => {
                               )}
                             </Name>
                           </div>
-                          {/* TODO follow */}
+
                           <div>
-                            {follow ? (
-                              <div>
-                                <span>CLick to unfollow: </span>
-                                <Button onClick={() => handleFollow(art.sub)}>
-                                  <RiUserUnfollowLine color={'black'} />
-                                </Button>
-                              </div>
+                            {allFollowings?.length > 0 ? (
+                              <>
+                                {allFollowings?.some((following) => {
+                                  return following === art.sub;
+                                }) ? (
+                                  <div>
+                                    <span>CLick to unfollow: </span>
+                                    <Button
+                                      onClick={() => handleFollow(art.sub)}
+                                    >
+                                      <RiUserFollowFill fill={'#2d545e'} />
+                                    </Button>
+                                  </div>
+                                ) : (
+                                  <div>
+                                    <span>Click to Follow: </span>
+                                    <Button
+                                      onClick={() => handleFollow(art.sub)}
+                                    >
+                                      <RiUserUnfollowLine color={'black'} />
+                                    </Button>
+                                  </div>
+                                )}{' '}
+                              </>
                             ) : (
                               <div>
                                 <span>Click to Follow: </span>
                                 <Button onClick={() => handleFollow(art.sub)}>
-                                  <RiUserFollowFill fill={'#2d545e'} />
+                                  <RiUserUnfollowLine color={'black'} />
                                 </Button>
                               </div>
                             )}
@@ -122,6 +142,19 @@ const AllArtsByStyle = () => {
     </Wrapper>
   );
 };
+
+const Name = styled.span`
+  margin-left: 5px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+  &:hover {
+    cursor: pointer;
+    color: #2279d2;
+  }
+`;
 
 const Button = styled.button`
   border: none;
@@ -156,14 +189,7 @@ const Product = styled.div`
   /* justify-content: space-between; */
   /* align-items: center; */
 `;
-const Name = styled.span`
-  margin-left: 5px;
-  margin-top: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  width: 100%;
-  text-align: left;
-`;
+
 const ImageContainer = styled.div`
   height: 180px;
   width: 100%;

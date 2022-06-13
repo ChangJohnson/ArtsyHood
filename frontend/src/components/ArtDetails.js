@@ -58,9 +58,7 @@ const ArtDetails = () => {
           <Img src={artInfo.url}></Img>
           <div>{artInfo.name}</div>
           <div>{artInfo.style}</div>
-          <div>
-            Comments:{artInfo.numOfComments ? artInfo.numOfComments : 0}
-          </div>
+          <div>Comments:{artInfo.comments ? artInfo.comments.length : 0}</div>
           <div onClick={() => handleLikes()}>Likes:{like ? 1 : 0}</div>
           <Comments artInfo={artInfo} />
         </>

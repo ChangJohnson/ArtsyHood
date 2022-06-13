@@ -24,7 +24,6 @@ const SearchResult = () => {
         }
         if (data.status === 200) {
           setItems(data.data);
-          console.log(data.data);
         }
       })
       .catch((err) => {

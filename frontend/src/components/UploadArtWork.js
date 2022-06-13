@@ -44,7 +44,6 @@ const UploadArtWork = () => {
                   name: artDescription,
                   style: artSelectStyle,
                   numOfLikes: [],
-                  numOfComments: 0,
                   comments: [],
                 },
               }),

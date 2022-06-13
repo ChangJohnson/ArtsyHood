@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
 import { AiFillHeart } from 'react-icons/ai';
+import { RiUserUnfollowLine, RiUserFollowFill } from 'react-icons/ri';
 import { User } from '@auth0/auth0-react';
 import { useAuth0 } from '@auth0/auth0-react';
 import AskToSignin from '../AskToSignin';
@@ -11,7 +12,8 @@ const AllOfSelectedUserArtWorks = () => {
   let { id } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth0();
-  const { like, handleLikes } = useContext(GlobalContext);
+  const { handleLikes, allLikes, allFollowings, handleFollow } =
+    useContext(GlobalContext);
 
   const [currentUserArts, setCurrentUserArts] = useState([]);
 
@@ -36,12 +38,22 @@ const AllOfSelectedUserArtWorks = () => {
             return (
               <div key={artInfo._id}>
                 <Product>
-                  <ImageContainer>
+                  <ImageContainer
+                    onClick={() => {
+                      navigate(`/art/${artInfo.name}/${artInfo.sub}`);
+                    }}
+                  >
                     <Img src={artInfo.url}></Img>
                   </ImageContainer>
                   <div>
                     <span>ArtName:</span>
-                    <ArtName>{artInfo.name}</ArtName>
+                    <ArtName
+                      onClick={() => {
+                        navigate(`/art/${artInfo.name}/${artInfo.sub}`);
+                      }}
+                    >
+                      {artInfo.name}
+                    </ArtName>
                   </div>
                   <div>
                     {' '}
@@ -52,33 +64,70 @@ const AllOfSelectedUserArtWorks = () => {
                       {artInfo.style}
                     </StyleAndArtist>
                   </div>
-                  <div>
-                    <span>ArtName:</span>
-                    <ArtName>{artInfo.name}</ArtName>
-                  </div>
+
                   <div>
                     <span>Comments:</span>
                     <span>
-                      {artInfo.numOfComments ? artInfo.numOfComments : 0}
+                      {artInfo.comments ? artInfo.comments.length : 0}
                     </span>
                   </div>
                   {user.sub === artInfo.sub ? (
                     ''
                   ) : (
-                    <div
-                      onClick={() => {
-                        handleLikes();
-                      }}
-                    >
-                      <span>Like:</span>
-                      <span>
-                        <HeartIcon>
-                          <AiFillHeart
-                            fill={like ? 'rgb(224, 36, 94)' : 'black'}
-                          />
-                        </HeartIcon>
-                      </span>
-                    </div>
+                    <>
+                      <div onClick={() => handleLikes(artInfo._id)}>
+                        <Title>Like:</Title>
+                        <Name>
+                          {allLikes?.length > 0 ? (
+                            <>
+                              {allLikes?.some((like) => {
+                                return like === artInfo._id;
+                              }) ? (
+                                <AiFillHeart fill={'rgb(224, 36, 94)'} />
+                              ) : (
+                                <AiFillHeart fill={'black'} />
+                              )}
+                            </>
+                          ) : (
+                            <AiFillHeart fill={'black'} />
+                          )}
+                        </Name>
+                      </div>
+
+                      <div>
+                        {allFollowings?.length > 0 ? (
+                          <>
+                            {allFollowings?.some((following) => {
+                              console.log('following', following);
+                              return following === artInfo.sub;
+                            }) ? (
+                              <div>
+                                <span>CLick to unfollow: </span>
+                                <Button
+                                  onClick={() => handleFollow(artInfo.sub)}
+                                >
+                                  <RiUserFollowFill fill={'#2d545e'} />
+                                </Button>
+                              </div>
+                            ) : (
+                              <div>
+                                <span>Click to Follow: </span>
+                                <Button
+                                  onClick={() => handleFollow(artInfo.sub)}
+                                ></Button>
+                              </div>
+                            )}{' '}
+                          </>
+                        ) : (
+                          <div>
+                            <span>Click to Follow: </span>
+                            <Button onClick={() => handleFollow(artInfo.sub)}>
+                              <RiUserUnfollowLine color={'black'} />
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    </>
                   )}
                 </Product>
               </div>
@@ -91,6 +140,27 @@ const AllOfSelectedUserArtWorks = () => {
     </Wrapper>
   );
 };
+
+const Button = styled.button`
+  border: none;
+  background-color: transparent;
+  width: 45px;
+  &:hover {
+    cursor: pointer;
+    color: #2279d2;
+  }
+`;
+
+const Title = styled.span``;
+
+const Name = styled.span`
+  margin-left: 5px;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  width: 100%;
+  text-align: left;
+`;
 
 const HeartIcon = styled.div``;
 

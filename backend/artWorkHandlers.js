@@ -38,7 +38,6 @@ const getArtsByProperty = async (req, res) => {
 const getArtsByStyle = async (req, res) => {
   const { style } = req.params;
 
-  console.log('+++++++++++', style);
   const client = new MongoClient(MONGO_URI, options);
 
   //Connect client
@@ -51,8 +50,6 @@ const getArtsByStyle = async (req, res) => {
     .collection('artWork')
     .find({ style: style })
     .toArray();
-
-  console.log('&&&&&&&&&&&&', artStyle);
 
   //Close client
   client.close();
@@ -162,7 +159,6 @@ const getAllOfUserArtWork = async (req, res) => {
 const getPictureById = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   await client.connect();
-  console.log('============', req.params._id);
 
   //Connect client
   await client.connect();
@@ -216,7 +212,7 @@ const postComments = async (req, res) => {
   console.log('disconnected!');
   //Close client
   result.modifiedCount === 1
-    ? res.status(200).json({ status: 200, data: result })
+    ? res.status(200).json({ status: 200, data: result, message: 'success' })
     : res.status(404).json({ status: 404, message: 'Comment was not added.' });
 };
 
@@ -243,6 +239,7 @@ const deleteComment = async (req, res) => {
             commentId: comment.commentId,
           },
         },
+        $inc: { numOfComments: -1 },
       }
     );
 
@@ -267,8 +264,6 @@ const patchUpdateLikes = async (req, res) => {
   console.log('connected!');
   const db = client.db('ArtsyHood');
   //Connect client
-  console.log('++++++++++', user);
-  console.log('===========', _id);
 
   const searchResult = await db
     .collection('artWork')

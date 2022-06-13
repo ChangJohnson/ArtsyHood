@@ -17,6 +17,7 @@ const {
   updateUser,
   getUser,
   updateFollow,
+  getFollowings,
 } = require('./userHandlers');
 
 // import the needed node_modules.
@@ -50,5 +51,6 @@ express()
   .put('/api/update/user', updateUser)
   .get('/api/profile/:_id', getUser)
   .patch('/api/follow', updateFollow)
+  .get('/api/followings/:user', getFollowings)
 
   .listen(8000, () => console.log(`Listening on port 8000`));

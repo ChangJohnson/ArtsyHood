@@ -25,6 +25,8 @@ const Comments = ({ artInfo }) => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
+
         if (data.status === 200) {
           console.log(data.message);
           window.location.reload();

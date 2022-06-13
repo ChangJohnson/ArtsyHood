@@ -7,12 +7,13 @@ const GlobalProvider = ({ children }) => {
   const [displaySearchBar, setDisplaySearchBar] = useState(false);
   const { isAuthenticated, user } = useAuth0();
   const [idToTrackArtWorks, setIdToTrackArtWorks] = useState({});
-  const [like, setLike] = useState('');
   const [artWorkDetails, setArtWorkDetails] = useState('');
   const [load, setLoad] = useState(false);
-  const [userData, setUserData] = useState('');
-  const [follow, setFollow] = useState(false);
   const [arts, setArts] = useState();
+  const [userData, setUserData] = useState('');
+  const [follow, setFollow] = useState('');
+  const [allFollowings, setAllFollowings] = useState([]);
+  const [like, setLike] = useState('');
   const [allLikes, setAllLikes] = useState([]);
 
   useEffect(() => {
@@ -60,7 +61,6 @@ const GlobalProvider = ({ children }) => {
         if (data.status === 200) {
           setLike(data.data);
           window.location.reload();
-          console.log('+++++++', data.data);
         } else {
           setLike('');
           window.location.reload();
@@ -71,13 +71,11 @@ const GlobalProvider = ({ children }) => {
   // on mount checks all the liked arts and render them on screen
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('hello');
       fetch(`/api/get-all-likes/${user.sub}`)
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {
             setAllLikes(data.data);
-            console.log('ypypypyp', data.data);
           } else {
             setAllLikes([]);
           }
@@ -106,12 +104,28 @@ const GlobalProvider = ({ children }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          setFollow(true);
+          window.location.reload();
+          setFollow(data.data);
         } else {
-          setFollow(false);
+          window.location.reload();
+          setFollow('');
         }
       });
   };
+  // on mount checks all the followings of user and render them on screen
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetch(`/api/followings/${user.sub}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === 200) {
+            setAllFollowings(data.data);
+          } else {
+            setAllFollowings([]);
+          }
+        });
+    }
+  }, [user]);
 
   return (
     <GlobalContext.Provider
@@ -135,6 +149,7 @@ const GlobalProvider = ({ children }) => {
         arts,
         setArts,
         allLikes,
+        allFollowings,
       }}
     >
       {children}

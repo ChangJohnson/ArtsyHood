@@ -105,7 +105,7 @@ const Products = styled.div`
   max-width: 1200px;
   margin: auto;
 
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 `;
 const Product = styled.div`
   border: 1px solid #cccccc;

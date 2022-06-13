@@ -10,6 +10,7 @@ const {
   patchUpdateLikes,
   deleteComment,
   getLikes,
+  getAllArtWorks,
 } = require('./artWorkHandlers');
 
 const {
@@ -17,7 +18,9 @@ const {
   updateUser,
   getUser,
   updateFollow,
+  getFollowingsId,
   getFollowings,
+  getFollowers,
 } = require('./userHandlers');
 
 // import the needed node_modules.
@@ -36,6 +39,7 @@ express()
   .get('/api/style/:style', getArtsByStyle)
   .post('/api/upload', postArtworksByUser)
   .get('/api/all-art-work/:id', getAllOfUserArtWork)
+  .get('/api/get-followings-artworks/:user', getAllArtWorks)
 
   // post and get comments ,delete  and updateLikes
   .post('/api/post-comment', postComments)
@@ -51,6 +55,8 @@ express()
   .put('/api/update/user', updateUser)
   .get('/api/profile/:_id', getUser)
   .patch('/api/follow', updateFollow)
-  .get('/api/followings/:user', getFollowings)
+  .get('/api/followings/:user', getFollowingsId)
+  .get('/api/get-followings/:user', getFollowings)
+  .get('/api/followers/:id', getFollowers)
 
   .listen(8000, () => console.log(`Listening on port 8000`));

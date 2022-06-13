@@ -158,10 +158,10 @@ const Img = styled.img`
 `;
 
 const Styles = styled.div`
-  max-width: 1400px;
+  width: 100%;
   margin-top: 100px;
   display: grid;
-  grid-template-columns: repeat(3, 600px);
+  grid-template-columns: repeat(3, 25%);
   justify-items: center;
   align-items: center;
   justify-content: center;

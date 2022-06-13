@@ -13,6 +13,7 @@ import UpdateProfile from './CurrentUser/UpdateProfile';
 import UserProfile from './CurrentUser/UserProfile';
 import AllOfSelectedUserArtWorks from './CurrentUser/AllOfSelectedUserArtWorks';
 import ArtDetails from './ArtDetails';
+import Followers from './CurrentUser/Followers';
 
 const App = () => {
   return (
@@ -50,11 +51,12 @@ const App = () => {
               <Route path='/art/upload' element={<UploadArtWork />} />
 
               <Route path='/style/:style' element={<AllArtsByStyle />} />
+
+              <Route path='/followers/:id' element={<Followers />} />
             </Routes>
           </Main>
-          <FooterCss>
-            <Footer />
-          </FooterCss>
+
+          <Footer />
         </BrowserRouter>
       </Wrapper>
     </>
@@ -62,7 +64,6 @@ const App = () => {
 };
 
 const Wrapper = styled.div``;
-const FooterCss = styled.div``;
 
 const Main = styled.div`
   /* display: flex;

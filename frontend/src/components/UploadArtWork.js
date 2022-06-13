@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 const UploadArtWork = () => {
   const navigate = useNavigate();
   const { v4: uuidv4 } = require('uuid');
-  const { isAuthenticated } = useAuth0();
+  const { isAuthenticated, user } = useAuth0();
 
   const { idToTrackArtWorks } = useContext(GlobalContext);
   const cloudName = process.env.REACT_APP_CLOUDINARY;
@@ -39,6 +39,8 @@ const UploadArtWork = () => {
               body: JSON.stringify({
                 data: {
                   _id: uuidv4(),
+                  authorNickname: user.nickname,
+                  authorPicture: user.picture,
                   url: result.info.secure_url,
                   sub: idToTrackArtWorks,
                   name: artDescription,
@@ -68,6 +70,7 @@ const UploadArtWork = () => {
     myWidget.open();
   };
 
+  console.log('hello', user);
   return (
     <Wrapper>
       {isAuthenticated ? (

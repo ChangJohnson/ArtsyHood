@@ -351,6 +351,58 @@ const getLikes = async (req, res) => {
   return res.status(404).json({ status: 404, message: 'Not found!' });
 };
 
+const getAllArtWorks = async (req, res) => {
+  const { user } = req.params;
+
+  const client = new MongoClient(MONGO_URI, options);
+
+  //Connect client
+  await client.connect();
+  console.log('connected!');
+  const db = client.db('ArtsyHood');
+  //Connect client
+
+  const results = await db.collection('artists').findOne({ _id: user });
+
+  const followingsData = results.followings.map((result) => {
+    return result._id;
+  });
+
+  const artists = await db.collection('artists').find().toArray();
+
+  const filteredArtists = artists.map((el) => {
+    return {
+      _id: el._id,
+      nickname: el.nickname ? el.nickname : '',
+      artistPicture: el.picture,
+    };
+  });
+
+  const artWorks = await db.collection('artWork').find().toArray();
+  const followArtWork = artWorks.filter((el) =>
+    followingsData.includes(el.sub)
+  );
+  const mergeData = followArtWork.map((el) => {
+    return {
+      ...filteredArtists.find((artist) => el.sub === artist._id),
+      ...el,
+    };
+  });
+
+  //Close client
+  client.close();
+  console.log('disconnected!');
+  //Close client
+
+  if (mergeData.length > 0) {
+    return res.status(200).json({
+      status: 200,
+      data: mergeData,
+    });
+  }
+  return res.status(404).json({ status: 404, message: 'Not found!' });
+};
+
 module.exports = {
   getArtsByProperty,
   getArtsByStyle,
@@ -362,4 +414,5 @@ module.exports = {
   patchUpdateLikes,
   deleteComment,
   getLikes,
+  getAllArtWorks,
 };

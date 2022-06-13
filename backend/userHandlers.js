@@ -181,6 +181,39 @@ const updateFollow = async (req, res) => {
 // ================================================================
 
 // get all the user followings on Mount
+const getFollowingsId = async (req, res) => {
+  const { user } = req.params;
+
+  const client = new MongoClient(MONGO_URI, options);
+
+  //Connect client
+  await client.connect();
+  console.log('connected!');
+  const db = client.db('ArtsyHood');
+  //Connect client
+
+  const results = await db.collection('artists').findOne({ _id: user });
+
+  //Close client
+  client.close();
+  console.log('disconnected!');
+  //Close client
+
+  const resultsIdsArr = results.followings.map((result) => {
+    return result._id;
+  });
+
+  if (resultsIdsArr.length > 0) {
+    return res.status(200).json({
+      status: 200,
+      data: resultsIdsArr,
+    });
+  }
+  return res.status(404).json({ status: 404, message: 'Not found!' });
+};
+
+// ================================================================
+
 const getFollowings = async (req, res) => {
   const { user } = req.params;
 
@@ -199,23 +232,58 @@ const getFollowings = async (req, res) => {
   console.log('disconnected!');
   //Close client
 
-  console.log('==========', results);
+  if (results.followings.length > 0) {
+    const followingsData = results.followings.map((result) => {
+      return result._id;
+    });
 
-  const resultsIdsArr = results.followings.map((result) => {
-    return result._id;
-  });
-
-  console.log('+++++++++++++', resultsIdsArr);
-
-  if (resultsIdsArr.length > 0) {
     return res.status(200).json({
       status: 200,
-      data: resultsIdsArr,
+      data: followingsData,
+    });
+  }
+
+  return res.status(404).json({ status: 404, message: 'Not found!' });
+};
+
+// ================================================================ =================================
+
+const getFollowers = async (req, res) => {
+  const { id } = req.params;
+
+  const client = new MongoClient(MONGO_URI, options);
+
+  //Connect client
+  await client.connect();
+  console.log('connected!');
+  const db = client.db('ArtsyHood');
+  //Connect client
+
+  const results = await db
+    .collection('artists')
+    .find({ followings: [{ _id: id }] })
+    .toArray();
+
+  //Close client
+  client.close();
+  console.log('disconnected!');
+  //Close client
+
+  if (results.length > 0) {
+    return res.status(200).json({
+      status: 200,
+      data: results,
     });
   }
   return res.status(404).json({ status: 404, message: 'Not found!' });
 };
 
-// ================================================================
-
-module.exports = { addUser, updateUser, getUser, updateFollow, getFollowings };
+module.exports = {
+  addUser,
+  updateUser,
+  getUser,
+  updateFollow,
+  getFollowingsId,
+  getFollowings,
+  getFollowers,
+};

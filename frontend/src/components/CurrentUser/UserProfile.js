@@ -16,7 +16,7 @@ const UserProfile = () => {
   const { isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
   let { _id } = useParams();
-  const { setUserData, allLikes, artWorkDetails, handleLikes } =
+  const { userData, setUserData, allLikes, artWorkDetails, handleLikes } =
     useContext(GlobalContext);
   const [followingData, getFollowingData] = useState([]);
 
@@ -44,7 +44,6 @@ const UserProfile = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          console.log(data.data);
           setAllFollowingsArts(data.data);
         } else console.log(data.message);
       })
@@ -53,35 +52,7 @@ const UserProfile = () => {
       });
   }, [_id]);
 
-  // useEffect(() => {
-  //   setLoading2(false);
-  //   fetch(`/api/get-followers/${user.sub}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.status === 200) {
-  //         getFollowersData(data.data);
-  //         setLoading2(true);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       'error';
-  //     });
-  // }, [allFollowings]);
-
-  // useEffect(() => {
-  //   setLoading1(false);
-  //   fetch(`/api/get-followings/${user.sub}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.status === 200) {
-  //         getFollowingData(data.data);
-  //         setLoading1(true);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       'error';
-  //     });
-  // }, [user]);
+  console.log('following', allFollowingsArts);
 
   return (
     <>
@@ -92,6 +63,16 @@ const UserProfile = () => {
           {isAuthenticated ? (
             <Div0>
               <Div>
+                <Div7>
+                  {userData.picture ? (
+                    <Avatar src={userData.picture}></Avatar>
+                  ) : (
+                    ''
+                  )}
+                  <div>
+                    {userData.nickname ? <div>@{userData.nickname}</div> : ''}
+                  </div>
+                </Div7>
                 <IconUpdateProfile onClick={() => navigate('/updateProfile')}>
                   <div>Edit Your Profile Here:</div>
                   <ImProfile />
@@ -109,71 +90,140 @@ const UserProfile = () => {
               <Div1>
                 {allFollowingsArts?.map((followingArt) => {
                   return (
-                    <div key={followingArt._id}>
-                      <Avatar
-                        onClick={() =>
-                          navigate(`/artistArts/${followingArt.sub}`)
-                        }
-                        src={followingArt.artistPicture}
-                      ></Avatar>
-                      <div>
-                        @{followingArt.nickname && followingArt.nickname}
-                      </div>
-                      <div>
-                        style:{followingArt.style && followingArt.style}
-                      </div>
-                      <Img
-                        onClick={() => {
-                          navigate(
-                            `/art/${followingArt.name}/${followingArt.sub}`
-                          );
-                        }}
-                        src={followingArt.url && followingArt.url}
-                      ></Img>
+                    <FollowingsDiv key={followingArt._id}>
+                      <Div3>
+                        <Div2>
+                          <Avatar
+                            onClick={() =>
+                              navigate(`/artistArts/${followingArt.sub}`)
+                            }
+                            src={followingArt.artistPicture}
+                          ></Avatar>
+                          <div>
+                            <Nickname
+                              onClick={() =>
+                                navigate(`/artistArts/${followingArt.sub}`)
+                              }
+                            >
+                              @{followingArt.nickname && followingArt.nickname}
+                            </Nickname>
+                            <Style
+                              onClick={() =>
+                                navigate(`/style/${followingArt.style}`)
+                              }
+                            >
+                              <StyleSpan> Style:</StyleSpan>
+                              <StyleSpan1>
+                                {followingArt.style && followingArt.style}
+                              </StyleSpan1>
+                            </Style>
+                          </div>
+                        </Div2>
+                        <Img
+                          onClick={() => {
+                            navigate(
+                              `/art/${followingArt.name}/${followingArt.sub}`
+                            );
+                          }}
+                          src={followingArt.url && followingArt.url}
+                        ></Img>
 
-                      <div>
-                        comments:
-                        {followingArt.comments &&
-                        followingArt.comments.length > 0
-                          ? followingArt.comments.length
-                          : 0}
-                      </div>
-                      <Icons>
-                        {comments ? (
-                          <span>
-                            <BiCommentDetail
-                              onClick={() => setComments(!comments)}
-                            />
-                            <Comments artInfo={followingArt._id} />
-                          </span>
-                        ) : (
-                          <BiCommentDetail
-                            onClick={() => setComments(!comments)}
-                          />
-                        )}
-                      </Icons>
-                      <Icons onClick={() => handleLikes(artWorkDetails._id)}>
-                        <span>
-                          {allLikes?.length > 0 ? (
-                            <>
-                              {allLikes?.some((like) => {
-                                return like === artWorkDetails._id;
-                              }) ? (
-                                <AiFillHeart fill={'rgb(224, 36, 94)'} />
+                        <ArtName>
+                          {followingArt.name && followingArt.name}
+                        </ArtName>
+                        <Div4>
+                          <Icons>
+                            {comments ? (
+                              <>
+                                <Div5>
+                                  <CommentsIcon>
+                                    <BiCommentDetail
+                                      onClick={() => setComments(!comments)}
+                                    />
+                                  </CommentsIcon>
+                                  <CommentsSpan>
+                                    {' '}
+                                    {followingArt.comments &&
+                                    followingArt.comments.length > 0
+                                      ? followingArt.comments.length
+                                      : 0}
+                                  </CommentsSpan>
+                                </Div5>
+                                <Comments artInfo={followingArt._id} />
+                              </>
+                            ) : (
+                              <>
+                                <Div5>
+                                  <CommentsIcon>
+                                    <BiCommentDetail
+                                      onClick={() => setComments(!comments)}
+                                    />
+                                  </CommentsIcon>
+                                  <CommentsSpan>
+                                    {' '}
+                                    {followingArt.comments &&
+                                    followingArt.comments.length > 0
+                                      ? followingArt.comments.length
+                                      : 0}
+                                  </CommentsSpan>
+                                </Div5>
+                              </>
+                            )}
+                          </Icons>
+                          <Icons
+                            onClick={() => handleLikes(artWorkDetails._id)}
+                          >
+                            <span>
+                              {allLikes?.length > 0 ? (
+                                <>
+                                  {allLikes?.some((like) => {
+                                    return like === artWorkDetails._id;
+                                  }) ? (
+                                    <Div5>
+                                      <IconSpan>
+                                        <AiFillHeart
+                                          fill={'rgb(224, 36, 94)'}
+                                        />
+                                      </IconSpan>
+                                      <LikesSpan>
+                                        {followingArt.numOfLikes &&
+                                        followingArt.numOfLikes.length > 0
+                                          ? followingArt.numOfLikes.length
+                                          : 0}
+                                      </LikesSpan>
+                                    </Div5>
+                                  ) : (
+                                    <Div5>
+                                      <IconSpan>
+                                        <AiFillHeart fill={'black'} />
+                                      </IconSpan>
+                                      <LikesSpan>
+                                        {followingArt.numOfLikes &&
+                                        followingArt.numOfLikes.length > 0
+                                          ? followingArt.numOfLikes.length
+                                          : 0}
+                                      </LikesSpan>
+                                    </Div5>
+                                  )}
+                                </>
                               ) : (
-                                <AiFillHeart fill={'black'} />
+                                <Div5>
+                                  <IconSpan>
+                                    <AiFillHeart fill={'black'} />
+                                  </IconSpan>
+                                  <LikesSpan>
+                                    {followingArt.numOfLikes &&
+                                    followingArt.numOfLikes.length > 0
+                                      ? followingArt.numOfLikes.length
+                                      : 0}
+                                  </LikesSpan>
+                                </Div5>
                               )}
-                            </>
-                          ) : (
-                            <AiFillHeart fill={'black'} />
-                          )}
-                        </span>
-                      </Icons>
-
-                      <div>
-                        @{followingArt.nickname && followingArt.nickname}
-                      </div>
-                    </div>
+                            </span>
+                          </Icons>
+                        </Div4>
+                      </Div3>
+                    </FollowingsDiv>
                   );
                 })}
               </Div1>
@@ -187,22 +237,116 @@ const UserProfile = () => {
   );
 };
 
-const Div0 = styled.div`
-  display: flex;
-  /* position: relative; */
+const StyleSpan1 = styled.span`
+  font-weight: bold;
+  font-size: 16px;
+  &:hover {
+    cursor: pointer;
+    color: #2279d2;
+  }
 `;
 
-const Div = styled.div``;
+const ArtName = styled.div`
+  margin-top: 10px;
+  margin-left: 25px;
+  font-size: 22px;
+  &:hover {
+    cursor: pointer;
+    color: #2279d2;
+  }
+`;
+
+const Div7 = styled.div`
+  margin-left: 40px;
+`;
+
+const CommentsSpan = styled.span`
+  padding-bottom: 5px;
+  margin-left: 10px;
+  padding-top: 5px;
+  font-size: 15px;
+`;
+
+const CommentsIcon = styled.span`
+  font-size: 35px;
+`;
+
+const Div5 = styled.span`
+  display: flex;
+`;
+
+const IconSpan = styled.span`
+  font-size: 35px;
+`;
+
+const LikesSpan = styled.span`
+  margin-left: 10px;
+  padding-top: 5px;
+`;
+
+const Div4 = styled.div`
+  margin-top: 45px;
+  display: flex;
+`;
+
+const StyleSpan = styled.span`
+  margin-right: 7px;
+`;
+
+const Div3 = styled.div`
+  margin-left: 100px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+`;
+
+const FollowingsDiv = styled.div`
+  /* margin-bottom: 75px; */
+  border-bottom: 1px solid #d6dbdf;
+`;
+
+const Nickname = styled.div`
+  color: #808080;
+  margin-bottom: 3px;
+  &:hover {
+    cursor: pointer;
+    color: #2279d2;
+  }
+`;
+
+const Style = styled.div`
+  margin-top: 10px;
+`;
+
+const Div2 = styled.div`
+  display: flex;
+`;
+
+const Div0 = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Div1 = styled.div`
-  /* position: absolute; */
-
-  left: 50%;
+  margin-right: 20%;
+  padding-top: 75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid #d6dbdf;
+  border-left: 1px solid #d6dbdf;
+  border-right: 1px solid #d6dbdf;
+  width: 1200px;
 `;
 
 const Icons = styled.span`
-  margin-left: 15px;
-  font-size: 25px;
+  margin-left: 25px;
+  margin-bottom: 50px;
+
   &:hover {
     cursor: pointer;
     color: var(--color-Night-Blue);
@@ -211,7 +355,8 @@ const Icons = styled.span`
 
 const Img = styled.img`
   max-height: 600px;
-  width: 75%;
+  border-radius: 1%;
+  width: 85%;
   object-fit: cover;
   &:hover {
     cursor: pointer;
@@ -220,9 +365,11 @@ const Img = styled.img`
 `;
 
 const Avatar = styled.img`
+  margin-bottom: 25px;
   margin-left: 10px;
+  margin-right: 20px;
   color: #e0e0e0;
-  width: 60px;
+  width: 75px;
   border-radius: 50%;
   &:hover {
     cursor: pointer;
@@ -248,7 +395,8 @@ const CheckUpArt = styled.div`
 const Wrapper = styled.div`
   min-height: calc(100vh - 350px);
   /* max-width: 100%; */
-  margin-bottom: 150px;
+  margin-bottom: 250px;
+  margin-top: 100px;
 `;
 
 const IconUpdateProfile = styled.div`

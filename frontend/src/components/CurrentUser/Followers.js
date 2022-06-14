@@ -72,6 +72,7 @@ const FollowerCard = styled.div`
   width: fit-content;
   padding: 10px;
   box-shadow: 10px 5px 5px #abb2b9;
+  background-color: #fdfefe;
 `;
 
 const Wrapper = styled.div`

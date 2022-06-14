@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoadingSpinner from '../LoadingSpinner';
 import Comments from '../Comments';
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { RiUserFollowFill, RiUserUnfollowLine } from 'react-icons/ri';
 import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
 import AskToSignin from '../AskToSignin';
@@ -54,8 +54,7 @@ const AllArtsByStyle = () => {
                         }}
                       />
                     </ImageContainer>
-                    <div>
-                      <Title>ArtName:</Title>
+                    <Div>
                       <Name
                         onClick={() => {
                           navigate(`/art/${art.name}/${art.sub}`);
@@ -82,11 +81,11 @@ const AllArtsByStyle = () => {
                                   }) ? (
                                     <AiFillHeart fill={'rgb(224, 36, 94)'} />
                                   ) : (
-                                    <AiFillHeart fill={'black'} />
+                                    <AiOutlineHeart />
                                   )}
                                 </>
                               ) : (
-                                <AiFillHeart fill={'black'} />
+                                <AiOutlineHeart />
                               )}
                             </Name>
                           </div>
@@ -127,7 +126,7 @@ const AllArtsByStyle = () => {
                           </div>
                         </>
                       )}
-                    </div>
+                    </Div>
                   </Product>
                 );
               })}
@@ -143,8 +142,13 @@ const AllArtsByStyle = () => {
   );
 };
 
+const Div = styled.div`
+  margin-top: 15px;
+`;
+
 const Name = styled.span`
   margin-left: 5px;
+
   margin-top: 10px;
   font-size: 16px;
   font-weight: bold;
@@ -173,7 +177,7 @@ const Products = styled.div`
   max-width: 1200px;
   margin: auto;
 
-  margin-bottom: 50px;
+  margin-bottom: 150px;
 `;
 const Product = styled.div`
   border: 1px solid #cccccc;
@@ -191,8 +195,9 @@ const Product = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  height: 180px;
+  height: 213px;
   width: 100%;
+
   border-bottom: 1px solid #cccccc;
 `;
 

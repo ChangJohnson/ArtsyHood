@@ -16,7 +16,7 @@ const AllMatchingResults = ({ arts }) => {
   const { handleFollow, allFollowings } = useContext(GlobalContext);
 
   return (
-    <>
+    <Wrapper>
       <Products>
         {arts?.map((art) => {
           return (
@@ -29,8 +29,7 @@ const AllMatchingResults = ({ arts }) => {
                   }}
                 />
               </ImageContainer>
-              <div>
-                <span>ArtName:</span>
+              <NameDiv>
                 <Name
                   onClick={() => {
                     navigate(`/art/${art.name}/${art.sub}`);
@@ -38,13 +37,13 @@ const AllMatchingResults = ({ arts }) => {
                 >
                   {art.name}
                 </Name>
-              </div>
-              <div>
+              </NameDiv>
+              <StyleDiv>
                 <span>Style:</span>
                 <Name onClick={() => navigate(`/style/${art.style}`)}>
                   {art.style}
                 </Name>
-              </div>
+              </StyleDiv>
 
               {user.sub !== art.sub ? (
                 <>
@@ -86,9 +85,22 @@ const AllMatchingResults = ({ arts }) => {
           );
         })}
       </Products>
-    </>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  background-color: var(--color-Sand-Tan);
+`;
+
+const StyleDiv = styled.div`
+  margin-bottom: 5px;
+`;
+
+const NameDiv = styled.div`
+  margin-bottom: 5px;
+  margin-top: 5px;
+`;
 
 const Button = styled.button`
   border: none;
@@ -104,7 +116,7 @@ const Products = styled.div`
   grid-template-columns: 1fr 1fr 1fr 1fr;
   max-width: 1200px;
   margin: auto;
-
+  min-height: 100%;
   margin-bottom: 150px;
 `;
 const Product = styled.div`
@@ -132,36 +144,19 @@ const Name = styled.span`
     color: #2279d2;
   }
 `;
-// const Price = styled.div`
-//   font-weight: bold;
-//   font-size: 20px;
-//   padding: 10px;
-//   border-radius: 10px;
-//   text-align: left;
-//   cursor: pointer;
-// `;
-// const Bottom = styled.div`
-//   width: 100%;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-// `;
-// const Status = styled.div`
-//   background-color: #e3fcf7;
-//   padding: 10px;
-//   font-size: 16px;
-//   border-radius: 10px;
-//   &.outOfStock {
-//     background-color: #f3f3f3;
-//   }
-// `;
+
 const ImageContainer = styled.div`
-  height: 180px;
+  height: 200px;
   width: 100%;
   border-bottom: 1px solid #cccccc;
 `;
 const Image = styled.img`
-  width: 150px;
+  width: 180px;
+  height: 190px;
+  margin-bottom: 10px;
+  border-radius: 1%;
+  object-fit: cover;
+
   margin-bottom: 10px;
   &:hover {
     cursor: pointer;

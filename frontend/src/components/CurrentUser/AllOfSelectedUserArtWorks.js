@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { RiUserUnfollowLine, RiUserFollowFill } from 'react-icons/ri';
 import { User } from '@auth0/auth0-react';
 import { useAuth0 } from '@auth0/auth0-react';
 import AskToSignin from '../AskToSignin';
+import LoadingSpinner from '../LoadingSpinner';
 
 const AllOfSelectedUserArtWorks = () => {
   let { id } = useParams();
@@ -24,7 +25,6 @@ const AllOfSelectedUserArtWorks = () => {
       .then((data) => {
         if (data.status === 200) {
           setCurrentUserArts(data.data);
-          console.log('456789', data.data);
         } else console.log(data.message);
       })
       .catch((err) => {
@@ -45,29 +45,29 @@ const AllOfSelectedUserArtWorks = () => {
       });
   }, [id]);
 
-  console.log('===========', artistData);
-
   return (
     <Wrapper>
       {isAuthenticated ? (
-        <div>
+        <Container>
           <div>
             {loading ? (
-              ''
+              <LoadingSpinner top={40} />
             ) : (
-              <>
+              <ArtistDiv>
                 <div>
-                  @
-                  {artistData.nickname
-                    ? artistData.nickname
-                    : 'artistData.nickname'}
+                  <Avatar
+                    src={artistData.picture ? artistData.picture : ''}
+                  ></Avatar>
+                  <Div>
+                    @
+                    {artistData.nickname
+                      ? artistData.nickname
+                      : 'artistData.nickname'}
+                  </Div>
                 </div>
-                <span>Artist Name:</span>
-                <div>{artistData.name ? artistData.name : ''}</div>
-                <Avatar
-                  src={artistData.picture ? artistData.picture : ''}
-                ></Avatar>
-              </>
+                <Span>Artist Name:</Span>
+                <Span>{artistData.name ? artistData.name : ''}</Span>
+              </ArtistDiv>
             )}
           </div>
           <Products>
@@ -83,7 +83,6 @@ const AllOfSelectedUserArtWorks = () => {
                       <Img src={artInfo.url}></Img>
                     </ImageContainer>
                     <div>
-                      <span>ArtName:</span>
                       <ArtName
                         onClick={() => {
                           navigate(`/art/${artInfo.name}/${artInfo.sub}`);
@@ -122,11 +121,11 @@ const AllOfSelectedUserArtWorks = () => {
                                 }) ? (
                                   <AiFillHeart fill={'rgb(224, 36, 94)'} />
                                 ) : (
-                                  <AiFillHeart fill={'black'} />
+                                  <AiOutlineHeart />
                                 )}
                               </>
                             ) : (
-                              <AiFillHeart fill={'black'} />
+                              <AiOutlineHeart />
                             )}
                           </Name>
                         </div>
@@ -139,7 +138,7 @@ const AllOfSelectedUserArtWorks = () => {
                                 return following === artInfo.sub;
                               }) ? (
                                 <div>
-                                  <span>CLick to unfollow: </span>
+                                  <span>Following: </span>
                                   <Button
                                     onClick={() => handleFollow(artInfo.sub)}
                                   >
@@ -148,7 +147,7 @@ const AllOfSelectedUserArtWorks = () => {
                                 </div>
                               ) : (
                                 <div>
-                                  <span>Click to Follow: </span>
+                                  <span>Unfollow: </span>
                                   <Button
                                     onClick={() => handleFollow(artInfo.sub)}
                                   ></Button>
@@ -157,7 +156,7 @@ const AllOfSelectedUserArtWorks = () => {
                             </>
                           ) : (
                             <div>
-                              <span>Click to Follow: </span>
+                              <span>Unfollow: </span>
                               <Button onClick={() => handleFollow(artInfo.sub)}>
                                 <RiUserUnfollowLine color={'black'} />
                               </Button>
@@ -171,7 +170,7 @@ const AllOfSelectedUserArtWorks = () => {
               );
             })}
           </Products>
-        </div>
+        </Container>
       ) : (
         <AskToSignin />
       )}
@@ -179,10 +178,46 @@ const AllOfSelectedUserArtWorks = () => {
   );
 };
 
+const Div = styled.div`
+  margin-top: 25px;
+  margin-left: 45px;
+  padding-top: 8px;
+  font-size: 25px;
+  border: none;
+  color: black;
+  background-color: transparent;
+  width: fit-content;
+  margin-bottom: 25px;
+  margin-left: 10px;
+`;
+
+const Span = styled.span`
+  margin-top: 25px;
+  margin-left: 45px;
+  padding-top: 8px;
+  font-size: 25px;
+  border: none;
+  color: black;
+  background-color: transparent;
+  width: fit-content;
+  margin-bottom: 25px;
+  margin-left: 10px;
+`;
+
+const ArtistDiv = styled.div`
+  margin-top: 25px;
+  margin-left: 25px;
+`;
+
+const Container = styled.div`
+  display: flex;
+`;
+
 const Avatar = styled.img`
+  margin-bottom: 15px;
   margin-left: 10px;
   color: #e0e0e0;
-  width: 60px;
+  width: 80px;
   border-radius: 50%;
   &:hover {
     cursor: pointer;
@@ -211,30 +246,29 @@ const Name = styled.span`
   text-align: left;
 `;
 
-const HeartIcon = styled.div``;
-
 const Products = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   max-width: 1200px;
   margin: auto;
-
-  margin-bottom: 50px;
+  margin-bottom: 250px;
+  min-height: 100%;
 `;
 
 const Product = styled.div`
   border: 1px solid #cccccc;
   margin: 10px;
-  padding: 10px;
+  padding: 25px;
   border-radius: 10px;
   text-decoration: none;
   text-align: center;
   color: black;
-  cursor: pointer;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  width: 300px;
 `;
 
 const ArtName = styled.span`
@@ -249,13 +283,20 @@ const ArtName = styled.span`
 `;
 
 const ImageContainer = styled.div`
-  height: 180px;
+  height: 200px;
   width: 100%;
   border-bottom: 1px solid #cccccc;
 `;
 const Img = styled.img`
-  width: 150px;
+  width: 180px;
+  height: 190px;
   margin-bottom: 10px;
+  border-radius: 1%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const StyleAndArtist = styled.span`
@@ -266,7 +307,9 @@ const StyleAndArtist = styled.span`
 `;
 
 const Wrapper = styled.div`
-  height: 80vh;
+  min-height: 80vh;
+  margin-bottom: 150px;
+  background-color: var(--color-Sand-Tan);
 `;
 
 export default AllOfSelectedUserArtWorks;

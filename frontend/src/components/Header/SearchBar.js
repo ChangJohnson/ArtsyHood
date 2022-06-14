@@ -51,6 +51,7 @@ const SearchBar = () => {
         <label></label>
         <Input
           type='text'
+          placeholder='Search Arts'
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyUp={(e) => {

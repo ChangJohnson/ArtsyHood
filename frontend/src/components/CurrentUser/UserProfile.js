@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import UpdateProfile from './UpdateProfile';
 import { useState, useEffect, useContext } from 'react';
 import { ImProfile } from 'react-icons/im';
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { SiArtstation } from 'react-icons/si';
 import { BiCommentDetail } from 'react-icons/bi';
 import { GiShadowFollower } from 'react-icons/gi';
@@ -16,13 +16,11 @@ const UserProfile = () => {
   const { isAuthenticated, user } = useAuth0();
   const navigate = useNavigate();
   let { _id } = useParams();
-  const { userData, setUserData, allLikes, artWorkDetails, handleLikes } =
+
+  const { userData, setUserData, allLikes, handleLikes } =
     useContext(GlobalContext);
-  const [followingData, getFollowingData] = useState([]);
 
   const [loading, setLoading] = useState(true);
-  const [loading1, setLoading1] = useState(false);
-  const [loading2, setLoading2] = useState(false);
   const [allFollowingsArts, setAllFollowingsArts] = useState([]);
   const [comments, setComments] = useState(false);
 
@@ -128,7 +126,13 @@ const UserProfile = () => {
                           src={followingArt.url && followingArt.url}
                         ></Img>
 
-                        <ArtName>
+                        <ArtName
+                          onClick={() => {
+                            navigate(
+                              `/art/${followingArt.name}/${followingArt.sub}`
+                            );
+                          }}
+                        >
                           {followingArt.name && followingArt.name}
                         </ArtName>
                         <Div4>
@@ -149,7 +153,9 @@ const UserProfile = () => {
                                       : 0}
                                   </CommentsSpan>
                                 </Div5>
-                                <Comments artInfo={followingArt._id} />
+                                <>
+                                  <Comments artInfo={followingArt._id} />
+                                </>
                               </>
                             ) : (
                               <>
@@ -170,14 +176,12 @@ const UserProfile = () => {
                               </>
                             )}
                           </Icons>
-                          <Icons
-                            onClick={() => handleLikes(artWorkDetails._id)}
-                          >
+                          <Icons onClick={() => handleLikes(followingArt._id)}>
                             <span>
                               {allLikes?.length > 0 ? (
                                 <>
                                   {allLikes?.some((like) => {
-                                    return like === artWorkDetails._id;
+                                    return like === followingArt._id;
                                   }) ? (
                                     <Div5>
                                       <IconSpan>
@@ -195,7 +199,7 @@ const UserProfile = () => {
                                   ) : (
                                     <Div5>
                                       <IconSpan>
-                                        <AiFillHeart fill={'black'} />
+                                        <AiOutlineHeart />
                                       </IconSpan>
                                       <LikesSpan>
                                         {followingArt.numOfLikes &&
@@ -209,7 +213,7 @@ const UserProfile = () => {
                               ) : (
                                 <Div5>
                                   <IconSpan>
-                                    <AiFillHeart fill={'black'} />
+                                    <AiOutlineHeart />
                                   </IconSpan>
                                   <LikesSpan>
                                     {followingArt.numOfLikes &&

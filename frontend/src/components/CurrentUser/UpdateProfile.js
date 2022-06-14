@@ -55,9 +55,9 @@ const UpdateProfile = () => {
   };
 
   return (
-    <>
+    <Wrapper>
       {isAuthenticated ? (
-        <div>
+        <Div>
           <Form
             onSubmit={(e) => {
               handleEditProfile(e);
@@ -130,13 +130,20 @@ const UpdateProfile = () => {
               <Button disabled>Submit</Button>
             )}
           </Form>
-        </div>
+        </Div>
       ) : (
         navigate('/please-signin')
       )}
-    </>
+    </Wrapper>
   );
 };
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  top: 50%;
+`;
 
 const Div2 = styled.div`
   display: flex;
@@ -145,7 +152,7 @@ const Div2 = styled.div`
 
 const Button = styled.button`
   margin-top: 20px;
-  background-color: #2279d2;
+  background-color: #2d545e;
   height: 50px;
   color: white;
   font-weight: bold;
@@ -164,13 +171,19 @@ const InputTitle = styled.div`
   margin-top: 30px;
   font-size: 18px;
   margin-bottom: 15px;
+  font-weight: bold;
+`;
+
+const Div = styled.div`
+  margin-top: 250px;
+  min-height: 80vh;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: fit-content;
-  height: 70vh;
+  min-height: 70vh;
 `;
 
 const Input = styled.input`

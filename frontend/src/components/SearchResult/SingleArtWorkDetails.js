@@ -6,7 +6,7 @@ import LoadingSpinner from '../LoadingSpinner';
 import { useAuth0 } from '@auth0/auth0-react';
 import SubHeader from '../Header/SubHeader';
 import Error from '../Error';
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { RiUserFollowFill, RiUserUnfollowLine } from 'react-icons/ri';
 import AskToSignin from '../AskToSignin';
 import Comments from '../Comments';
@@ -45,27 +45,6 @@ const SingleArtWorkDetails = () => {
         }
       });
   }, [name]);
-
-  // const handleLikes = () => {
-  //   fetch('/api/update-likes', {
-  //     body: JSON.stringify({
-  //       _id: artWorkDetails._id,
-  //       user: user.sub,
-  //     }),
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.status === 200) {
-  //         setLike(true);
-  //       } else {
-  //         setLike(false);
-  //       }
-  //     });
-  // };
 
   if (error) {
     return (
@@ -128,11 +107,11 @@ const SingleArtWorkDetails = () => {
                               }) ? (
                                 <AiFillHeart fill={'rgb(224, 36, 94)'} />
                               ) : (
-                                <AiFillHeart fill={'black'} />
+                                <AiOutlineHeart />
                               )}
                             </>
                           ) : (
-                            <AiFillHeart fill={'black'} />
+                            <AiOutlineHeart />
                           )}
                         </Name>
                       </div>
@@ -144,7 +123,7 @@ const SingleArtWorkDetails = () => {
                               return following === artWorkDetails.sub;
                             }) ? (
                               <div>
-                                <span>CLick to unfollow: </span>
+                                <span>Following: </span>
                                 <Button
                                   onClick={() =>
                                     handleFollow(artWorkDetails.sub)
@@ -155,7 +134,7 @@ const SingleArtWorkDetails = () => {
                               </div>
                             ) : (
                               <div>
-                                <span>Click to Follow: </span>
+                                <span>Unfollow: </span>
                                 <Button
                                   onClick={() =>
                                     handleFollow(artWorkDetails.sub)
@@ -168,7 +147,7 @@ const SingleArtWorkDetails = () => {
                           </>
                         ) : (
                           <div>
-                            <span>Click to Follow: </span>
+                            <span>Unfollow: </span>
                             <Button
                               onClick={() => handleFollow(artWorkDetails.sub)}
                             >
@@ -211,15 +190,21 @@ const Button = styled.button`
 const Title = styled.span``;
 
 const Wrapper = styled.div`
+  padding-top: 50px;
+  display: flex;
   height: 80vh;
+  justify-content: center;
+
+  background-color: var(--color-Sand-Tan);
 `;
 const Products = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   max-width: 1200px;
+  min-width: 1000px;
   margin: auto;
 
-  margin-bottom: 50px;
+  /* margin-bottom: 55px; */
 `;
 const Product = styled.div`
   border: 1px solid #cccccc;
@@ -234,6 +219,7 @@ const Product = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  min-height: 63vh;
 `;
 const Name = styled.span`
   margin-left: 5px;
@@ -247,37 +233,18 @@ const Name = styled.span`
     color: #2279d2;
   }
 `;
-const Price = styled.div`
-  font-weight: bold;
-  font-size: 20px;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: left;
-  cursor: pointer;
-`;
-const Bottom = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-const Status = styled.div`
-  background-color: #e3fcf7;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 10px;
-  &.outOfStock {
-    background-color: #f3f3f3;
-  }
-`;
+
 const ImageContainer = styled.div`
-  height: 180px;
+  min-height: 180px;
   width: 100%;
   border-bottom: 1px solid #cccccc;
 `;
 const Image = styled.img`
-  width: 150px;
+  min-height: 400px;
   margin-bottom: 10px;
+  border-radius: 1%;
+  object-fit: cover;
+  width: 85%;
 `;
 
 export default SingleArtWorkDetails;

@@ -22,7 +22,7 @@ const App = () => {
         <GlobalStyles />
         <BrowserRouter>
           <Header />
-          <Main>
+          <Main id='main'>
             <Routes>
               <Route exact path='/' element={<HomePage />} />
 
@@ -55,7 +55,6 @@ const App = () => {
               <Route path='/followers/:id' element={<Followers />} />
             </Routes>
           </Main>
-
           <Footer />
         </BrowserRouter>
       </Wrapper>
@@ -63,12 +62,15 @@ const App = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  height: 100%;
+  min-height: 100%;
+`;
 
 const Main = styled.div`
   /* display: flex;
   flex-direction: column; */
-  min-height: calc(100vh - 350px);
+  min-height: 100%;
   min-width: 1024px;
 `;
 

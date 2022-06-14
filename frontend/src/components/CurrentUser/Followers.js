@@ -31,26 +31,67 @@ const Followers = () => {
       {isAuthenticated
         ? followersData?.map((el) => {
             return (
-              <div>
-                <div>{el.name ? el.name : ''}</div>
-                <div>@{el.nickname ? el.nickname : ''}</div>
-                <Avatar
-                  src={el.picture ? el.picture : ''}
-                  onClick={() => navigate(`/artistArts/${el._id}`)}
-                ></Avatar>
-                <div>{el.city ? el.city : ''}</div>
-                <div>{el.province ? el.province : ''}</div>
-                <div>{el.country ? el.country : ''}</div>
-              </div>
+              <Wrapper>
+                <FollowerCard>
+                  <Div>
+                    <Name onClick={() => navigate(`/artistArts/${el._id}`)}>
+                      {el.name ? el.name : ''}
+                    </Name>
+                    <Name onClick={() => navigate(`/artistArts/${el._id}`)}>
+                      @{el.nickname ? el.nickname : ''}
+                    </Name>
+                    <Avatar
+                      src={el.picture ? el.picture : ''}
+                      onClick={() => navigate(`/artistArts/${el._id}`)}
+                    ></Avatar>
+                  </Div>
+                  <Div2>
+                    <div>Location:</div>
+                    <div>{el.city ? el.city : ''},</div>
+                    <div>{el.province ? el.province : ''},</div>
+                    <div>{el.country ? el.country : ''}</div>
+                  </Div2>
+                </FollowerCard>
+              </Wrapper>
             );
           })
         : ''}
     </>
   );
 };
+const Div2 = styled.div`
+  margin-top: 7px;
+`;
+
+const Div = styled.div`
+  border-bottom: 1px solid #5d6d7e;
+`;
+
+const FollowerCard = styled.div`
+  border: 1px solid #f2f4f4;
+  width: fit-content;
+  padding: 10px;
+  box-shadow: 10px 5px 5px #abb2b9;
+`;
+
+const Wrapper = styled.div`
+  margin-top: 30px;
+  margin-left: 25px;
+`;
+
+const Name = styled.div`
+  margin-top: 5px;
+  &:hover {
+    cursor: pointer;
+    color: #2279d2;
+  }
+`;
 
 const Avatar = styled.img`
+  margin-top: 5px;
   margin-left: 10px;
+  margin-bottom: 5px;
+
   color: #e0e0e0;
   width: 60px;
   border-radius: 50%;

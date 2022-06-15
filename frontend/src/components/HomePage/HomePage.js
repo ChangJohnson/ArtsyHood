@@ -9,34 +9,7 @@ import { GlobalContext } from '../GlobalStylesAndContext/GlobalContext';
 const HomePage = () => {
   let navigate = useNavigate();
 
-  // const { setIdToTrackArtWorks } = useContext(GlobalContext);
-
-  const { isAuthenticated, user } = useAuth0();
-
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     fetch('/api/add/user', {
-  //       body: JSON.stringify({
-  //         user,
-  //       }),
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         if (data.status === 201) {
-  //           setIdToTrackArtWorks(data.data);
-  //         } else if (data.status === 404) {
-  //           setIdToTrackArtWorks(data.data);
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       });
-  //   }
-  // }, [user]);
+  const { isAuthenticated } = useAuth0();
 
   return (
     <Wrapper>
@@ -136,7 +109,7 @@ const Span = styled.span`
 const DivEffect = styled.div``;
 
 const Div2 = styled.div`
-  padding-top: 25px;
+  padding-top: 65px;
   display: flex;
   justify-content: center;
   font-family: Apple Chancery, css;
@@ -150,10 +123,11 @@ const Img = styled.img`
   height: 400px;
   object-fit: cover;
   border-radius: 10px;
-  /* transform: ${(props) => `scale(${props.width}, ${props.height})`}; */
+  transition: transform 0.2s;
+  box-shadow: 10px 5px 5px #c89666;
   &:hover {
     cursor: pointer;
-    transform: scale(1);
+    transform: scale(1.1);
   }
 `;
 
@@ -181,6 +155,7 @@ const Banner = styled.img`
   height: 50vh;
   object-fit: cover;
   width: 100%;
+  box-shadow: 10px 5px 5px #c89666;
 `;
 
 export default HomePage;

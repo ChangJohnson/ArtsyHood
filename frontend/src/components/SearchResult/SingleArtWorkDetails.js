@@ -57,9 +57,9 @@ const SingleArtWorkDetails = () => {
   return (
     <Wrapper>
       <Products>
-        {isAuthenticated ? (
+        {artWorkDetails ? (
           <>
-            {artWorkDetails ? (
+            {isAuthenticated ? (
               <Product>
                 <ImageContainer>
                   <Image src={artWorkDetails.url} alt='art' />
@@ -163,20 +163,16 @@ const SingleArtWorkDetails = () => {
                 </div>
               </Product>
             ) : (
-              <LoadingSpinner top={40} />
+              <AskToSignin />
             )}
           </>
         ) : (
-          <AskToSignin />
+          <LoadingSpinner top={40} />
         )}
       </Products>
     </Wrapper>
   );
 };
-
-const Div = styled.div`
-  width: fit-content;
-`;
 
 const Button = styled.button`
   border: none;
@@ -192,7 +188,8 @@ const Title = styled.span``;
 const Wrapper = styled.div`
   padding-top: 50px;
   display: flex;
-  height: 80vh;
+  min-height: 80vh;
+  min-width: 100vw;
   justify-content: center;
 
   background-color: var(--color-Sand-Tan);
@@ -203,8 +200,6 @@ const Products = styled.div`
   max-width: 1200px;
   min-width: 1000px;
   margin: auto;
-
-  /* margin-bottom: 55px; */
 `;
 const Product = styled.div`
   border: 1px solid #cccccc;
@@ -219,7 +214,9 @@ const Product = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  min-height: 63vh;
+  min-height: 80vh;
+
+  margin-bottom: 200px;
 `;
 const Name = styled.span`
   margin-left: 5px;

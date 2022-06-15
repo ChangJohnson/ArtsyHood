@@ -251,7 +251,7 @@ const Products = styled.div`
   grid-auto-flow: column;
   /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  max-width: 1200px;
+  min-width: 100vw;
   margin: auto;
   margin-bottom: 250px;
   min-height: 100%;
@@ -311,6 +311,7 @@ const StyleAndArtist = styled.span`
 `;
 
 const Wrapper = styled.div`
+  min-width: 100vw;
   min-height: 80vh;
   margin-bottom: 150px;
   background-color: var(--color-Sand-Tan);

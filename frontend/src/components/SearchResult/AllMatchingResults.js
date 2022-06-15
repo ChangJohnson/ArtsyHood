@@ -92,6 +92,7 @@ const AllMatchingResults = ({ arts }) => {
 const Wrapper = styled.div`
   background-color: var(--color-Sand-Tan);
   min-height: 80vh;
+  min-width: 100vw;
 `;
 
 const StyleDiv = styled.div`

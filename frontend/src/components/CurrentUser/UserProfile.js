@@ -154,7 +154,7 @@ const UserProfile = () => {
                                   </CommentsSpan>
                                 </Div5>
                                 <>
-                                  <Comments artInfo={followingArt._id} />
+                                  <Comments artInfo={followingArt} />
                                 </>
                               </>
                             ) : (
@@ -374,7 +374,7 @@ const Avatar = styled.img`
   margin-left: 10px;
   margin-right: 20px;
   color: #e0e0e0;
-  width: 75px;
+  width: 55px;
   border-radius: 50%;
   &:hover {
     cursor: pointer;

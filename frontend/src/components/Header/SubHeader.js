@@ -1,9 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 //the subheader shows specifically what page the user is on. The title of the page is in the subheader
 const SubHeader = ({ title, subTitle, website }) => {
   const openInNewTab = (url) => {
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
   return (
     <Wrapper>
@@ -31,7 +31,7 @@ const SubHeader = ({ title, subTitle, website }) => {
 const Wrapper = styled.div`
   padding: 15px 0;
   background-color: #ebebeb;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   display: flex;
   justify-content: space-between;
   justify-content: center;
@@ -39,13 +39,12 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-
-    width: 100%;
-    max-width: 1200px;
-    box-sizing: border-box;
-    padding:30px;
-    display: flex;
-    justify-content: space-between;
+  width: 100%;
+  min-width: 1200px;
+  box-sizing: border-box;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Title = styled.h2`

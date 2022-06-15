@@ -68,3 +68,53 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Welcome to ArtsyHood
+
+![HomePage](README/HomePage.png)
+
+This is the HomePge that allows you to Sign in, Search, Upload and view Profile.
+
+===========================================================================================================================================
+
+![HomePage.gif](README/HomePage.gif)
+
+At HomePage you can click on any Style to do a quick Search.
+
+===========================================================================================================================================
+
+![Login](README/Login.gif)
+
+You can use easily Log in and out or Sign up to use the websites features.
+
+===========================================================================================================================================
+
+![UserProfile](README/UserProfile.gif)
+
+Once Sign in, you can get to UserProfile by clicking on the top right corner Profile Icon. this will take you to UserProfile which you can see what it looks like in this gif.
+
+===========================================================================================================================================
+
+![SearchBar](README/SearchBar.gif)
+
+you can see the SearchBar only appears once clicked on Search Icon. you can search for specific Art work by clicking on the ArtWork name of the drop down menu of SearchBar.
+
+===========================================================================================================================================
+
+![SearchByStyle](README/SearchedByStyle.gif)
+
+You can see all the Art Work of that was posted in this website by chosen style.
+
+===========================================================================================================================================
+
+![SearchResults](README/SearchResults.png)
+
+Search Result looks like on screen.
+
+===========================================================================================================================================
+
+![UploadArts](README/UploadArts.png)
+
+Upload page like on screen.
+
+===========================================================================================================================================

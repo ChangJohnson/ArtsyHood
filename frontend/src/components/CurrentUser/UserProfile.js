@@ -362,6 +362,7 @@ const Img = styled.img`
   border-radius: 1%;
   width: 85%;
   object-fit: cover;
+  box-shadow: 10px 5px 5px #abb2b9;
   &:hover {
     cursor: pointer;
     color: var(--color-Night-Blue);

@@ -190,6 +190,7 @@ const Product = styled.div`
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  box-shadow: 10px 5px 5px #c89666;
   /* justify-content: space-between; */
   /* align-items: center; */
 `;
@@ -206,6 +207,7 @@ const Img = styled.img`
   height: 200px;
   width: 200px;
   margin-bottom: 10px;
+  box-shadow: 10px 5px 5px #c89666;
   &:hover {
     cursor: pointer;
   }

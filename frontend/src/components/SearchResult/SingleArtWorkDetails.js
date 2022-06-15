@@ -214,7 +214,7 @@ const Product = styled.div`
   text-decoration: none;
   text-align: center;
   color: black;
-
+  box-shadow: 10px 5px 5px #c89666;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -245,6 +245,7 @@ const Image = styled.img`
   border-radius: 1%;
   object-fit: cover;
   width: 85%;
+  box-shadow: 10px 5px 5px #c89666;
 `;
 
 export default SingleArtWorkDetails;

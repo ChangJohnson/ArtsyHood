@@ -91,6 +91,7 @@ const AllMatchingResults = ({ arts }) => {
 
 const Wrapper = styled.div`
   background-color: var(--color-Sand-Tan);
+  min-height: 80vh;
 `;
 
 const StyleDiv = styled.div`
@@ -132,6 +133,8 @@ const Product = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  box-shadow: 10px 5px 5px #c89666;
 `;
 const Name = styled.span`
   margin-left: 5px;
@@ -156,7 +159,7 @@ const Image = styled.img`
   margin-bottom: 10px;
   border-radius: 1%;
   object-fit: cover;
-
+  box-shadow: 10px 5px 5px #c89666;
   margin-bottom: 10px;
   &:hover {
     cursor: pointer;

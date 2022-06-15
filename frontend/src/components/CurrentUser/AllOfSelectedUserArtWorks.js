@@ -248,6 +248,8 @@ const Name = styled.span`
 
 const Products = styled.div`
   display: grid;
+  grid-auto-flow: column;
+  /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
   grid-template-columns: 1fr 1fr 1fr 1fr;
   max-width: 1200px;
   margin: auto;
@@ -263,8 +265,9 @@ const Product = styled.div`
   text-decoration: none;
   text-align: center;
   color: black;
-
+  box-shadow: 10px 5px 5px #c89666;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -294,6 +297,7 @@ const Img = styled.img`
   border-radius: 1%;
   object-fit: cover;
   margin-bottom: 10px;
+  box-shadow: 10px 5px 5px #c89666;
   &:hover {
     cursor: pointer;
   }

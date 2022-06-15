@@ -364,41 +364,43 @@ const getAllArtWorks = async (req, res) => {
 
   const results = await db.collection('artists').findOne({ _id: user });
 
-  const followingsData = results.followings.map((result) => {
-    return result._id;
-  });
-
-  const artists = await db.collection('artists').find().toArray();
-
-  const filteredArtists = artists.map((el) => {
-    return {
-      _id: el._id,
-      nickname: el.nickname ? el.nickname : '',
-      artistPicture: el.picture,
-    };
-  });
-
-  const artWorks = await db.collection('artWork').find().toArray();
-  const followArtWork = artWorks.filter((el) =>
-    followingsData.includes(el.sub)
-  );
-  const mergeData = followArtWork.map((el) => {
-    return {
-      ...filteredArtists.find((artist) => el.sub === artist._id),
-      ...el,
-    };
-  });
-
-  //Close client
-  client.close();
-  console.log('disconnected!');
-  //Close client
-
-  if (mergeData.length > 0) {
-    return res.status(200).json({
-      status: 200,
-      data: mergeData,
+  if (results.followings) {
+    const followingsData = results.followings?.map((result) => {
+      return result._id;
     });
+
+    const artists = await db.collection('artists').find().toArray();
+
+    const filteredArtists = artists?.map((el) => {
+      return {
+        _id: el._id,
+        nickname: el.nickname ? el.nickname : '',
+        artistPicture: el.picture,
+      };
+    });
+
+    const artWorks = await db.collection('artWork')?.find().toArray();
+    const followArtWork = artWorks?.filter((el) =>
+      followingsData?.includes(el.sub)
+    );
+    const mergeData = followArtWork?.map((el) => {
+      return {
+        ...filteredArtists?.find((artist) => el.sub === artist._id),
+        ...el,
+      };
+    });
+
+    //Close client
+    client.close();
+    console.log('disconnected!');
+    //Close client
+
+    if (mergeData.length > 0) {
+      return res.status(200).json({
+        status: 200,
+        data: mergeData,
+      });
+    }
   }
   return res.status(404).json({ status: 404, message: 'Not found!' });
 };

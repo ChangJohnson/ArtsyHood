@@ -199,15 +199,17 @@ const getFollowingsId = async (req, res) => {
   console.log('disconnected!');
   //Close client
 
-  const resultsIdsArr = results.followings.map((result) => {
-    return result._id;
-  });
-
-  if (resultsIdsArr.length > 0) {
-    return res.status(200).json({
-      status: 200,
-      data: resultsIdsArr,
+  if (results) {
+    const resultsIdsArr = results.followings.map((result) => {
+      return result._id;
     });
+
+    if (resultsIdsArr.length > 0) {
+      return res.status(200).json({
+        status: 200,
+        data: resultsIdsArr,
+      });
+    }
   }
   return res.status(404).json({ status: 404, message: 'Not found!' });
 };
@@ -216,7 +218,6 @@ const getFollowingsId = async (req, res) => {
 
 const getFollowings = async (req, res) => {
   const { user } = req.params;
-
   const client = new MongoClient(MONGO_URI, options);
 
   //Connect client
@@ -232,7 +233,8 @@ const getFollowings = async (req, res) => {
   console.log('disconnected!');
   //Close client
 
-  if (results.followings.length > 0) {
+  console.log('========', results);
+  if (results.followings) {
     const followingsData = results.followings.map((result) => {
       return result._id;
     });
